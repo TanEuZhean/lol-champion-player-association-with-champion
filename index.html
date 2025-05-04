@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-image: url('https://i.postimg.cc/2kk46KC9/when-i-clicked-into-fofostream-i-thought-hes-myfraud-v0-788d39odmwtd1.webp'
+      background-image: url('https://i.postimg.cc/KknvRP5Y'); /* Zeus meme picture */
       background-size: cover;
       background-position: center;
       color: white;
@@ -89,13 +89,17 @@
       "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
       "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
       "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra"
+      "Ziggs", "Zilean", "Zoe", "Zyra",
+      "xdd" // Adding meme character as the last champion
     ];
 
     let currentIndex = 0;
     const results = [];
 
     function getChampionImageUrl(name) {
+      if (name === "xdd") {
+        return "https://i.postimg.cc/3xGcNjhK/xdd-meme.jpg"; // Image of the meme character
+      }
       return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
     }
 
