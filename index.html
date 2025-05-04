@@ -71,11 +71,15 @@
 </head>
 <body>
   <div class="container" id="game">
-    <h1>Name the pro player</h1>
+    <h1>Who Matches This Champion?</h1>
     <img id="champion-img" src="" alt="Champion" />
     <div>
       <input type="text" id="player-name" placeholder="Enter pro player name" />
       <button onclick="submitAnswer()">Submit</button>
+    </div>
+    <div>
+      <button onclick="goBack()">Back</button>
+      <button onclick="skipChampion()">Skip</button>
     </div>
   </div>
 
@@ -106,6 +110,7 @@
       "xdd" // Adding meme character as the last champion
     ];
 
+
     let currentIndex = 0;
     const results = [];
 
@@ -123,13 +128,27 @@
       }
       const champ = champions[currentIndex];
       document.getElementById('champion-img').src = getChampionImageUrl(champ);
-      document.getElementById('player-name').value = '';
+      document.getElementById('player-name').value = results[currentIndex]?.player || '';
     }
 
     function submitAnswer() {
       const input = document.getElementById('player-name').value.trim();
       const champ = champions[currentIndex];
-      results.push({ champion: champ, player: input || "(No answer)" });
+      results[currentIndex] = { champion: champ, player: input || "(No answer)" };
+      currentIndex++;
+      loadChampion();
+    }
+
+    function goBack() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadChampion();
+      }
+    }
+
+    function skipChampion() {
+      const champ = champions[currentIndex];
+      results[currentIndex] = { champion: champ, player: "(Skipped)" };
       currentIndex++;
       loadChampion();
     }
@@ -138,6 +157,7 @@
       document.getElementById('game').style.display = 'none';
       const summaryDiv = document.getElementById('summary');
       const list = document.getElementById('summary-list');
+      list.innerHTML = ''; // Clear previous content
       results.forEach(entry => {
         const div = document.createElement('div');
         div.className = 'summary-entry';
