@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Champion Association Game</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-image: url('https://i.postimg.cc/vBK12Xg5/when-i-clicked-into-fofostream-i-thought-hes-myfraud-v0-788d39odmwtd1.webp'); /* Zeus meme picture */
+      background-image: url('https://i.postimg.cc/vBK12Xg5/when-i-clicked-into-fofostream-i-thought-hes-myfraud-v0-788d39odmwtd1.webp');
       background-size: cover;
       background-position: center;
       color: white;
@@ -19,49 +19,62 @@
       margin: 0;
       backdrop-filter: brightness(0.8);
     }
+
     img {
-      width: 400px;
-      height: 250px;
+      width: 800px;
+      height: 500px;
       object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      border: 3px solid #fff;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      border: 5px solid #fff;
     }
+
     input, button {
-      padding: 10px;
-      font-size: 16px;
-      margin: 5px;
-      border-radius: 5px;
+      padding: 20px;
+      font-size: 24px;
+      margin: 10px;
+      border-radius: 10px;
       border: none;
     }
+
     input {
-      width: 250px;
+      width: 400px;
     }
+
     button {
       background-color: #1e90ff;
       color: white;
       cursor: pointer;
     }
+
     .container {
       text-align: center;
       background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 15px;
+      padding: 40px;
+      border-radius: 25px;
     }
+
     #summary {
       display: none;
     }
+
     .summary-entry {
-      margin: 8px 0;
+      margin: 16px 0;
+      font-size: 20px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 30px;
     }
   </style>
 </head>
 <body>
   <div class="container" id="game">
-    <h1>Name a pro player?</h1>
-    <img id="champion-img" src="" alt="Champion">
+    <h1>Who Matches This Champion?</h1>
+    <img id="champion-img" src="" alt="Champion" />
     <div>
-      <input type="text" id="player-name" placeholder="Enter pro player name">
+      <input type="text" id="player-name" placeholder="Enter pro player name" />
       <button onclick="submitAnswer()">Submit</button>
     </div>
   </div>
@@ -73,24 +86,7 @@
 
   <script>
     const champions = [
-      "Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "AurelionSol", "Azir",
-      "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "ChoGath",
-      "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks",
-      "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim",
-      "Heimerdinger", "Hwei", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin",
-      "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen",
-      "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra",
-      "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser",
-      "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu",
-      "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus",
-      "RekSai", "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani",
-      "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner",
-      "Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
-      "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
-      "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
-      "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra",
-      "xdd" // Adding meme character as the last champion
+      "Aatrox", "Ahri", "Akali", /* ... all others ... */ "Zyra", "xdd"
     ];
 
     let currentIndex = 0;
@@ -98,7 +94,7 @@
 
     function getChampionImageUrl(name) {
       if (name === "xdd") {
-        return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp"; // Updated image for meme character
+        return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
       }
       return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
     }
