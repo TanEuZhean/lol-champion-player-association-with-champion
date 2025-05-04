@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Champion Association Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://images.alphacoders.com/132/1328752.jpeg'); /* Cool LoL background */
+      background-size: cover;
+      background-position: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      backdrop-filter: brightness(0.8);
+    }
+    img {
+      width: 400px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border: 3px solid #fff;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+    input {
+      width: 250px;
+    }
+    button {
+      background-color: #1e90ff;
+      color: white;
+      cursor: pointer;
+    }
+    .container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 15px;
+    }
+    #summary {
+      display: none;
+    }
+    .summary-entry {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="game">
+    <h1>Who Matches This Champion?</h1>
+    <img id="champion-img" src="" alt="Champion">
+    <div>
+      <input type="text" id="player-name" placeholder="Enter pro player name">
+      <button onclick="submitAnswer()">Submit</button>
+    </div>
+  </div>
+
+  <div class="container" id="summary">
+    <h1>Summary</h1>
+    <div id="summary-list"></div>
+  </div>
+
+  <script>
+    const champions = [
+      "Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "AurelionSol", "Azir"
+    ];
+
+    let currentIndex = 0;
+    const results = [];
+
+    function getChampionImageUrl(name) {
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
+    }
+
+    function loadChampion() {
+      if (currentIndex >= champions.length) {
+        showSummary();
+        return;
+      }
+      const champ = champions[currentIndex];
+      document.getElementById('champion-img').src = getChampionImageUrl(champ);
+      document.getElementById('player-name').value = '';
+    }
+
+    function submitAnswer() {
+      const input = document.getElementById('player-name').value.trim();
+      const champ = champions[currentIndex];
+      results.push({ champion: champ, player: input || "(No answer)" });
+      currentIndex++;
+      loadChampion();
+    }
+
+    function showSummary() {
+      document.getElementById('game').style.display = 'none';
+      const summaryDiv = document.getElementById('summary');
+      const list = document.getElementById('summary-list');
+      results.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = 'summary-entry';
+        div.textContent = `${entry.champion} → ${entry.player}`;
+        list.appendChild(div);
+      });
+      summaryDiv.style.display = 'block';
+    }
+
+    // Start game
+    window.onload = loadChampion;
+  </script>
+</body>
+</html>
