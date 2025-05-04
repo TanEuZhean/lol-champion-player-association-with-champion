@@ -7,7 +7,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-image: url('https://images.alphacoders.com/132/1328752.jpeg');
+      /* Updated background to the direct Postimages link */
+      background-image: url('https://i.postimg.cc/2kk46KC9/when-i-clicked-into-fofostream-i-thought-hes-myfraud-v0-788d39odmwtd1.webp');
       background-size: cover;
       background-position: center;
       color: white;
@@ -87,50 +88,16 @@
       "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner",
       "Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
       "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
-      "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
-      "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra"
+      "Veigar", "Velkoz", "Vex`, etc.
     ];
-
     let currentIndex = 0;
     const results = [];
-
-    function getChampionImageUrl(name) {
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
-    }
-
-    function loadChampion() {
-      if (currentIndex >= champions.length) {
-        showSummary();
-        return;
-      }
-      const champ = champions[currentIndex];
-      document.getElementById('champion-img').src = getChampionImageUrl(champ);
-      document.getElementById('player-name').value = '';
-    }
-
-    function submitAnswer() {
-      const input = document.getElementById('player-name').value.trim();
-      const champ = champions[currentIndex];
-      results.push({ champion: champ, player: input || "(No answer)" });
-      currentIndex++;
-      loadChampion();
-    }
-
-    function showSummary() {
-      document.getElementById('game').style.display = 'none';
-      const summaryDiv = document.getElementById('summary');
-      const list = document.getElementById('summary-list');
-      results.forEach(entry => {
-        const div = document.createElement('div');
-        div.className = 'summary-entry';
-        div.textContent = `${entry.champion} → ${entry.player}`;
-        list.appendChild(div);
-      });
-      summaryDiv.style.display = 'block';
-    }
-
+    function getChampionImageUrl(name) { return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`; }
+    function loadChampion() { if (currentIndex >= champions.length) { showSummary(); return; } const champ = champions[currentIndex]; document.getElementById('champion-img').src = getChampionImageUrl(champ); document.getElementById('player-name').value = ''; }
+    function submitAnswer() { const input = document.getElementById('player-name').value.trim(); const champ = champions[currentIndex]; results.push({ champion: champ, player: input || "(No answer)" }); currentIndex++; loadChampion(); }
+    function showSummary() { document.getElementById('game').style.display = 'none'; const summaryDiv = document.getElementById('summary'); const list = document.getElementById('summary-list'); results.forEach(entry => { const div = document.createElement('div'); div.className = 'summary-entry'; div.textContent = `${entry.champion} → ${entry.player}`; list.appendChild(div); }); summaryDiv.style.display = 'block'; }
     window.onload = loadChampion;
   </script>
 </body>
 </html>
+
