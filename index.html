@@ -1,5 +1,3 @@
-Let's get back to our newest perfect code 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -205,7 +203,7 @@ Let's get back to our newest perfect code
     ];
 
     let currentIndex = 0;
-    const results = [];
+    const results = new Map(); // Use a Map to store unique champions
 
     function getChampionImageUrl(name) {
       if (name === "xdd") {
@@ -232,7 +230,7 @@ Let's get back to our newest perfect code
       };
 
       const urlName = specialCases[name] || name;
-      return https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg;
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
     function loadChampion() {
@@ -244,13 +242,19 @@ Let's get back to our newest perfect code
 
     function submitAnswer() {
       const input = document.getElementById('player-name').value.trim();
-      results.push({ champion: champions[currentIndex], player: input || "(No answer)" });
+      const champion = champions[currentIndex];
+      if (!results.has(champion)) {
+        results.set(champion, input || "(No answer)");
+      }
       currentIndex++;
       loadChampion();
     }
 
     function skipChampion() {
-      results.push({ champion: champions[currentIndex], player: "(Skipped)" });
+      const champion = champions[currentIndex];
+      if (!results.has(champion)) {
+        results.set(champion, "(Skipped)");
+      }
       currentIndex++;
       loadChampion();
     }
@@ -258,7 +262,7 @@ Let's get back to our newest perfect code
     function goBack() {
       if (currentIndex > 0) {
         currentIndex--;
-        results.pop();
+        results.delete(champions[currentIndex]);
         loadChampion();
       }
     }
@@ -266,19 +270,14 @@ Let's get back to our newest perfect code
     function showSummary() {
       document.getElementById('game').style.display = 'none';
       const list = document.getElementById('summary-list');
-      results.forEach(e => {
+      results.forEach((player, champion) => {
         const d = document.createElement('div');
         d.className = 'summary-entry';
-        d.innerHTML = <img src="${getChampionImageUrl(e.champion)}" alt="${e.champion}"/><span>${e.champion} → ${e.player}</span>;
+        d.innerHTML = `<img src="${getChampionImageUrl(champion)}" alt="${champion}"/><span>${champion} → ${player}</span>`;
         list.appendChild(d);
       });
       document.getElementById('summary').style.display = 'block';
     }
-
-    // Allow Enter to always submit
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') submitAnswer();
-    });
 
     loadChampion();
   </script>
