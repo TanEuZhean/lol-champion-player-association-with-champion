@@ -49,7 +49,7 @@
       padding: 12px 16px;
       font-size: 20px;
       border-radius: 4px;
-      border: 1px solid #C8AA6E;
+      border: 2px solid #C8AA6E;
       background-color: #1e1e1e;
       color: #F0E6D2;
     }
@@ -126,6 +126,34 @@
       object-fit: cover;
       border-radius: 6px;
     }
+
+    /* Styling the inner buttons (Back & Skip) to match the main buttons */
+    .inner-button {
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: bold;
+      border-radius: 50px; /* Rounded edges */
+      margin: 10px;
+      background: linear-gradient(135deg, #A87645, #C89F69); /* Same gradient color */
+      color: #F0E6D2;
+      border: 2px solid #6B4A29; /* Same border color */
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7); /* Same shadow effect */
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+    }
+
+    .inner-button:hover {
+      background: linear-gradient(135deg, #C89F69, #A87645); /* Inverted gradient on hover */
+      transform: scale(1.05); /* Slightly larger on hover */
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.8); /* Darker shadow on hover */
+    }
+
+    .inner-button:active {
+      background: #F0E6D2; /* Lighter gold when clicked */
+      color: #6C542A;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -137,8 +165,8 @@
       <button onclick="submitAnswer()">Submit</button>
     </div>
     <div id="nav-buttons">
-      <button onclick="goBack()">Back</button>
-      <button onclick="skipChampion()">Skip</button>
+      <button class="inner-button" onclick="goBack()">Back</button>
+      <button class="inner-button" onclick="skipChampion()">Skip</button>
     </div>
     <div id="credits">Made by kyanitevrc (discord)</div>
   </div>
