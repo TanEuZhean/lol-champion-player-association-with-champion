@@ -67,6 +67,12 @@
       font-size: 40px;
       margin-bottom: 30px;
     }
+
+    .credit-text {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
@@ -75,11 +81,12 @@
     <img id="champion-img" src="" alt="Champion" />
     <div>
       <input type="text" id="player-name" placeholder="Enter pro player name" />
-      <button onclick="submitAnswer()">Submit</button>
-    </div>
-    <div>
-      <button onclick="goBack()">Back</button>
-      <button onclick="skipChampion()">Skip</button>
+      <div>
+        <button onclick="submitAnswer()">Submit</button>
+        <button onclick="goBack()">Back</button>
+        <button onclick="skipChampion()">Skip</button>
+      </div>
+      <p class="credit-text">Made by kyanitevrc (discord)</p>
     </div>
   </div>
 
@@ -107,9 +114,8 @@
       "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
       "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
       "Ziggs", "Zilean", "Zoe", "Zyra",
-      "xdd" // Adding meme character as the last champion
+      "xdd"
     ];
-
 
     let currentIndex = 0;
     const results = [];
@@ -128,13 +134,13 @@
       }
       const champ = champions[currentIndex];
       document.getElementById('champion-img').src = getChampionImageUrl(champ);
-      document.getElementById('player-name').value = results[currentIndex]?.player || '';
+      document.getElementById('player-name').value = '';
     }
 
     function submitAnswer() {
       const input = document.getElementById('player-name').value.trim();
       const champ = champions[currentIndex];
-      results[currentIndex] = { champion: champ, player: input || "(No answer)" };
+      results.push({ champion: champ, player: input || "(No answer)" });
       currentIndex++;
       loadChampion();
     }
@@ -142,13 +148,14 @@
     function goBack() {
       if (currentIndex > 0) {
         currentIndex--;
+        results.pop();
         loadChampion();
       }
     }
 
     function skipChampion() {
       const champ = champions[currentIndex];
-      results[currentIndex] = { champion: champ, player: "(Skipped)" };
+      results.push({ champion: champ, player: "(Skipped)" });
       currentIndex++;
       loadChampion();
     }
@@ -157,7 +164,6 @@
       document.getElementById('game').style.display = 'none';
       const summaryDiv = document.getElementById('summary');
       const list = document.getElementById('summary-list');
-      list.innerHTML = ''; // Clear previous content
       results.forEach(entry => {
         const div = document.createElement('div');
         div.className = 'summary-entry';
