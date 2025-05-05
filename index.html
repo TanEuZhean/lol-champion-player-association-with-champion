@@ -10,7 +10,7 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Beaufort for LOL', Arial, sans-serif;
+      font-family: 'Beaufort for LOL', Arial, sans-serif; /* Set Beaufort for LOL as the global font */
       background-image: url('https://i.postimg.cc/d1Cq70Gp/image.png'); /* League of Legends client background image */
       background-size: cover; /* Make sure the background fills the screen */
       background-position: center;
@@ -264,18 +264,11 @@
       results.forEach(e => {
         const d = document.createElement('div');
         d.className = 'summary-entry';
-        d.innerHTML = `<img src="${getChampionImageUrl(e.champion)}" alt="${e.champion}"/><span>${e.champion} → ${e.player}</span>`;
+        d.innerHTML = `<img src="${getChampionImageUrl(e.champion)}" alt="${e.champion}"/><span>${e.champion}: ${e.player}</span>`;
         list.appendChild(d);
       });
       document.getElementById('summary').style.display = 'block';
     }
-
-    // Allow the "Enter" key to trigger the submit button
-    document.getElementById('player-name').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        submitAnswer();
-      }
-    });
 
     loadChampion();
   </script>
