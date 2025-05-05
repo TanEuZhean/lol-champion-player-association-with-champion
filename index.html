@@ -25,7 +25,6 @@
       border-radius: 10px;
       padding: 40px;
       max-width: 1000px;
-      width: 100%;
       text-align: center;
       box-shadow: 0 0 20px #000;
     }
@@ -93,33 +92,34 @@
       display: none;
     }
 
-    #summary-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-      text-align: left;
-    }
-
     .summary-entry {
       display: flex;
       align-items: center;
+      gap: 12px;
       background-color: #1e1e1e;
-      border: 2px solid #C8AA6E;
+      border: 1px solid #785A28;
+      padding: 10px;
+      margin: 8px 0;
       border-radius: 8px;
-      padding: 8px;
-      color: #F0E6D2;
-      font-size: 16px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .summary-entry img {
-      width: 64px;
-      height: 36px;
+      width: 60px;
+      height: 34px;
       object-fit: cover;
+      border: 2px solid #C8AA6E;
       border-radius: 4px;
-      margin-right: 12px;
-      border: 1px solid #785A28;
+    }
+
+    .summary-entry span {
+      font-size: 18px;
+      color: #F0E6D2;
+    }
+
+    #summary-list {
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 10px;
     }
   </style>
 </head>
@@ -196,6 +196,21 @@
       return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
+    function getThumbnailUrl(name) {
+      const specialCases = {
+        ChoGath: "Chogath",
+        KhaZix: "Khazix",
+        RekSai: "RekSai",
+        Velkoz: "Velkoz",
+        KSante: "KSante",
+        LeBlanc: "Leblanc",
+        Wukong: "MonkeyKing"
+      };
+
+      const urlName = specialCases[name] || name;
+      return `https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/${urlName}.png`;
+    }
+
     function loadChampion() {
       if (currentIndex >= champions.length) return showSummary();
       document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
@@ -226,28 +241,31 @@
     function showSummary() {
       document.getElementById('game').style.display = 'none';
       const list = document.getElementById('summary-list');
-      list.innerHTML = '';
-
       results.forEach(e => {
-        const d = document.createElement('div');
-        d.className = 'summary-entry';
+        const entry = document.createElement('div');
+        entry.className = 'summary-entry';
 
         const img = document.createElement('img');
-        img.src = getChampionImageUrl(e.champion);
-        img.alt = e.champion;
+        img.src = getThumbnailUrl(e.champion);
 
         const text = document.createElement('span');
         text.textContent = `${e.champion} → ${e.player}`;
 
-        d.appendChild(img);
-        d.appendChild(text);
-        list.appendChild(d);
+        entry.appendChild(img);
+        entry.appendChild(text);
+        list.appendChild(entry);
       });
-
       document.getElementById('summary').style.display = 'block';
     }
 
-    window.onload = loadChampion;
+    window.onload = () => {
+      loadChampion();
+      document.getElementById('player-name').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          submitAnswer();
+        }
+      });
+    };
   </script>
 </body>
 </html>
