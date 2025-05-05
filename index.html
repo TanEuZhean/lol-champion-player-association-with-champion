@@ -237,6 +237,13 @@
       document.getElementById('summary').style.display = 'block';
     }
 
+    // Allow the "Enter" key to trigger the submit button
+    document.getElementById('player-name').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        submitAnswer();
+      }
+    });
+
     window.onload = loadChampion;
   </script>
 </body>
