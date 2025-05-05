@@ -68,13 +68,14 @@
       margin-bottom: 30px;
     }
 
-    #buttons-container {
-      margin-top: 10px;
+    #nav-buttons {
+      margin-top: 20px;
     }
 
     #credits {
       margin-top: 20px;
       font-size: 32px;
+      color: #ccc;
     }
   </style>
 </head>
@@ -86,9 +87,9 @@
       <input type="text" id="player-name" placeholder="Enter pro player name" />
       <button onclick="submitAnswer()">Submit</button>
     </div>
-    <div id="buttons-container">
+    <div id="nav-buttons">
       <button onclick="goBack()">Back</button>
-      <button onclick="skip()">Skip</button>
+      <button onclick="skipChampion()">Skip</button>
     </div>
     <div id="credits">Made by kyanitevrc (discord)</div>
   </div>
@@ -127,10 +128,18 @@
       if (name === "xdd") {
         return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
       }
-      if (name === "ChoGath") {
-        return "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Chogath_0.jpg";
-      }
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
+
+      const specialCases = {
+        ChoGath: "Chogath",
+        KhaZix: "Khazix",
+        RekSai: "RekSai",
+        Velkoz: "Velkoz",
+        KSante: "Ksante",
+        JarvanIV: "JarvanIV"
+      };
+
+      const urlName = specialCases[name] || name;
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
     function loadChampion() {
@@ -146,7 +155,14 @@
     function submitAnswer() {
       const input = document.getElementById('player-name').value.trim();
       const champ = champions[currentIndex];
-      results[currentIndex] = { champion: champ, player: input || "(No answer)" };
+      results.push({ champion: champ, player: input || "(No answer)" });
+      currentIndex++;
+      loadChampion();
+    }
+
+    function skipChampion() {
+      const champ = champions[currentIndex];
+      results.push({ champion: champ, player: "(Skipped)" });
       currentIndex++;
       loadChampion();
     }
@@ -154,15 +170,9 @@
     function goBack() {
       if (currentIndex > 0) {
         currentIndex--;
+        results.pop();
         loadChampion();
       }
-    }
-
-    function skip() {
-      const champ = champions[currentIndex];
-      results[currentIndex] = { champion: champ, player: "(Skipped)" };
-      currentIndex++;
-      loadChampion();
     }
 
     function showSummary() {
