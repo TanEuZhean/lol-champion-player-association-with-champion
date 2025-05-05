@@ -31,6 +31,11 @@
       box-shadow: 0 0 20px #000;
     }
 
+    .container.summary {
+      max-width: 1200px;
+      padding: 60px;
+    }
+
     h1 {
       font-size: 32px;
       color: #F0E6D2;
@@ -102,7 +107,7 @@
       flex-wrap: wrap;
       gap: 16px;
       justify-content: center;
-      max-height: 600px;
+      max-height: 800px;
       overflow-y: auto;
       padding-right: 10px;
     }
@@ -170,7 +175,7 @@
     <div id="credits">Made by kyanitevrc (discord)</div>
   </div>
 
-  <div class="container" id="summary">
+  <div class="container summary" id="summary">
     <h1>Summary</h1>
     <div id="summary-list"></div>
   </div>
@@ -232,6 +237,7 @@
       if (currentIndex >= champions.length) return showSummary();
       document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
       document.getElementById('player-name').value = '';
+      document.getElementById('player-name').focus();
     }
 
     function submitAnswer() {
@@ -267,12 +273,9 @@
       document.getElementById('summary').style.display = 'block';
     }
 
-    // Global listener: Pressing Enter triggers submit
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        submitAnswer();
-      }
+    // Allow Enter to always submit
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submitAnswer();
     });
 
     loadChampion();
