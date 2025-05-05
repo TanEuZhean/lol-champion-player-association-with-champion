@@ -11,7 +11,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Beaufort for LOL', Arial, sans-serif;
-      background-color: #0A0A0A; /* Dark color similar to game UI */
+      background-color: #0A0A0A;
       color: #C8AA6E;
       display: flex;
       justify-content: center;
@@ -21,7 +21,7 @@
 
     .container {
       background: rgba(15, 15, 15, 0.9);
-      border: 4px solid #785A28; /* Thicker border */
+      border: 4px solid #785A28;
       border-radius: 10px;
       padding: 40px;
       max-width: 1000px;
@@ -39,7 +39,7 @@
       width: 920px;
       height: 518px;
       object-fit: cover;
-      border: 4px solid #C8AA6E; /* Thicker border */
+      border: 4px solid #C8AA6E;
       border-radius: 6px;
       margin-bottom: 20px;
     }
@@ -54,25 +54,29 @@
       color: #F0E6D2;
     }
 
+    /* Button styles */
     button {
-      padding: 12px 24px;
+      padding: 14px 28px;
       font-size: 20px;
-      border-radius: 4px;
+      font-weight: bold;
+      border-radius: 30px; /* Rounded corners */
       margin: 10px;
-      background-color: #333333; /* Darker background */
-      color: #F0E6D2; /* Light text */
-      border: 2px solid #C8AA6E; /* Gold border */
-      transition: background-color 0.3s, transform 0.2s;
+      background: linear-gradient(145deg, #6C542A, #C8AA6E); /* Gradient background */
+      color: #F0E6D2;
+      border: none;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
       cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     button:hover {
-      background-color: #785A28; /* Gold background on hover */
-      transform: scale(1.05); /* Slight enlarge effect */
+      background: linear-gradient(145deg, #C8AA6E, #6C542A); /* Inverted gradient on hover */
+      transform: scale(1.05);
     }
 
     button:active {
-      background-color: #C8AA6E; /* Lighter gold on click */
+      background: #F0E6D2; /* Lighter gold on click */
+      color: #6C542A;
     }
 
     #nav-buttons {
