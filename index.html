@@ -68,14 +68,10 @@
       margin-bottom: 30px;
     }
 
-    #nav-buttons {
-      margin-top: 20px;
-    }
-
-    #credits {
-      margin-top: 20px;
-      font-size: 32px;
-      color: #ccc;
+    .credits {
+      font-size: 28px;
+      color: white;
+      margin-top: 30px;
     }
   </style>
 </head>
@@ -86,12 +82,10 @@
     <div>
       <input type="text" id="player-name" placeholder="Enter pro player name" />
       <button onclick="submitAnswer()">Submit</button>
-    </div>
-    <div id="nav-buttons">
       <button onclick="goBack()">Back</button>
-      <button onclick="skipChampion()">Skip</button>
+      <button onclick="skip()">Skip</button>
     </div>
-    <div id="credits">Made by kyanitevrc (discord)</div>
+    <div class="credits">Made by kyanitevrc (discord)</div>
   </div>
 
   <div class="container" id="summary">
@@ -118,28 +112,31 @@
       "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
       "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
       "Ziggs", "Zilean", "Zoe", "Zyra",
-      "xdd"
+      "xdd" // Adding meme character as the last champion
     ];
+
+    const specialCases = {
+      ChoGath: "Chogath",
+      KhaZix: "Khazix",
+      RekSai: "RekSai",
+      Velkoz: "Velkoz",
+      JarvanIV: "JarvanIV",
+      LeBlanc: "Leblanc",  // Fixing LeBlanc
+      Wukong: "Wukong"    // Keeping Wukong as is
+    };
 
     let currentIndex = 0;
     const results = [];
 
     function getChampionImageUrl(name) {
+      // Checking if the champion name has a special case for capitalization
+      if (specialCases[name]) {
+        name = specialCases[name];
+      }
       if (name === "xdd") {
         return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
       }
-
-      const specialCases = {
-        ChoGath: "Chogath",
-        KhaZix: "Khazix",
-        RekSai: "RekSai",
-        Velkoz: "Velkoz",
-        KSante: "Ksante",
-        JarvanIV: "JarvanIV"
-      };
-
-      const urlName = specialCases[name] || name;
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
     }
 
     function loadChampion() {
@@ -160,21 +157,6 @@
       loadChampion();
     }
 
-    function skipChampion() {
-      const champ = champions[currentIndex];
-      results.push({ champion: champ, player: "(Skipped)" });
-      currentIndex++;
-      loadChampion();
-    }
-
-    function goBack() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        results.pop();
-        loadChampion();
-      }
-    }
-
     function showSummary() {
       document.getElementById('game').style.display = 'none';
       const summaryDiv = document.getElementById('summary');
@@ -186,6 +168,18 @@
         list.appendChild(div);
       });
       summaryDiv.style.display = 'block';
+    }
+
+    function goBack() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadChampion();
+      }
+    }
+
+    function skip() {
+      currentIndex++;
+      loadChampion();
     }
 
     window.onload = loadChampion;
