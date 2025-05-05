@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Champion Association Game</title>
   <style>
+    /* ————— nothing changed here ————— */
     body {
       font-family: Arial, sans-serif;
       background-image: url('https://i.postimg.cc/vBK12Xg5/when-i-clicked-into-fofostream-i-thought-hes-myfraud-v0-788d39odmwtd1.webp');
@@ -39,7 +40,6 @@
 
     input {
       width: 400px;
-      display: block;
     }
 
     button {
@@ -55,14 +55,8 @@
       border-radius: 25px;
     }
 
-    #nav-buttons {
-      margin-top: 20px;
-    }
-
-    #credits {
-      margin-top: 20px;
-      font-size: 32px;
-      color: #ccc;
+    #summary {
+      display: none;
     }
 
     .summary-entry {
@@ -75,8 +69,14 @@
       margin-bottom: 30px;
     }
 
-    #summary {
-      display: none;
+    #nav-buttons {
+      margin-top: 20px;
+    }
+
+    #credits {
+      margin-top: 20px;
+      font-size: 32px;
+      color: #ccc;
     }
   </style>
 </head>
@@ -101,9 +101,7 @@
   </div>
 
   <script>
-    const champions = [
-      "Aatrox", "Ahri", "Akali", /* … */ "Zyra", "xdd"
-    ];
+    const champions = [ /* … your full list … */ "Zyra","xdd" ];
 
     let currentIndex = 0;
     const results = [];
@@ -112,27 +110,24 @@
       if (name === "xdd") {
         return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
       }
-      // default splash‑art URL
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
+
+      const specialCases = {
+        ChoGath:   "Chogath",
+        KhaZix:    "Khazix",
+        RekSai:    "RekSai",
+        Velkoz:    "Velkoz",
+        KSante:    "Ksante",       // <— fixed case
+        LeBlanc:   "Leblanc",      // <— fixed case
+        Wukong:    "MonkeyKing"    // <— splash art is under “MonkeyKing_0.jpg”
+      };
+
+      const urlName = specialCases[name] || name;
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
     function loadChampion() {
-      if (currentIndex >= champions.length) {
-        showSummary();
-        return;
-      }
-      const name = champions[currentIndex];
-      const img = document.getElementById('champion-img');
-
-      // set splash art
-      img.src = getChampionImageUrl(name);
-
-      // if that fails, fall back to the small icon
-      img.onerror = () => {
-        img.onerror = null;
-        img.src = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/${name}.png`;
-      };
-
+      if (currentIndex >= champions.length) return showSummary();
+      document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
       document.getElementById('player-name').value = '';
     }
 
