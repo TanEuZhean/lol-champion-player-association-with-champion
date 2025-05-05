@@ -1,3 +1,31 @@
+function getChampionImageUrl(name) {
+  if (name === "xdd") {
+    return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
+  }
+  if (name === "ChoGath") {
+    return "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Chogath_0.jpg";
+  }
+  return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
+}
+This preserves your nice full splash images and ensures Cho'Gath works properly.
+
+Would you like me to update your full HTML code to include this fix?
+
+
+
+
+
+
+You said:
+Yes
+
+
+ChatGPT said:
+Here’s your updated HTML code with the Cho'Gath image fix in place using a special case in getChampionImageUrl():
+
+html
+Copy
+Edit
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,10 +96,13 @@
       margin-bottom: 30px;
     }
 
-    .credit-text {
+    #buttons-container {
+      margin-top: 10px;
+    }
+
+    #credits {
       margin-top: 20px;
       font-size: 32px;
-      color: #ccc;
     }
   </style>
 </head>
@@ -81,13 +112,13 @@
     <img id="champion-img" src="" alt="Champion" />
     <div>
       <input type="text" id="player-name" placeholder="Enter pro player name" />
-      <div>
-        <button onclick="submitAnswer()">Submit</button>
-        <button onclick="goBack()">Back</button>
-        <button onclick="skipChampion()">Skip</button>
-      </div>
-      <p class="credit-text">Made by kyanitevrc (discord)</p>
+      <button onclick="submitAnswer()">Submit</button>
     </div>
+    <div id="buttons-container">
+      <button onclick="goBack()">Back</button>
+      <button onclick="skip()">Skip</button>
+    </div>
+    <div id="credits">Made by kyanitevrc (discord)</div>
   </div>
 
   <div class="container" id="summary">
@@ -124,6 +155,9 @@
       if (name === "xdd") {
         return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
       }
+      if (name === "ChoGath") {
+        return "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Chogath_0.jpg";
+      }
       return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
     }
 
@@ -140,7 +174,7 @@
     function submitAnswer() {
       const input = document.getElementById('player-name').value.trim();
       const champ = champions[currentIndex];
-      results.push({ champion: champ, player: input || "(No answer)" });
+      results[currentIndex] = { champion: champ, player: input || "(No answer)" };
       currentIndex++;
       loadChampion();
     }
@@ -148,14 +182,13 @@
     function goBack() {
       if (currentIndex > 0) {
         currentIndex--;
-        results.pop();
         loadChampion();
       }
     }
 
-    function skipChampion() {
+    function skip() {
       const champ = champions[currentIndex];
-      results.push({ champion: champ, player: "(Skipped)" });
+      results[currentIndex] = { champion: champ, player: "(Skipped)" };
       currentIndex++;
       loadChampion();
     }
