@@ -11,10 +11,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Beaufort for LOL', Arial, sans-serif;
-      background-image: url('https://i.postimg.cc/90Rszg6z/lol-bg.jpg'); /* Replace with an actual LoL-style matte background */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background-color: #0A0A0A; /* Dark color similar to game UI */
       color: #C8AA6E;
       display: flex;
       justify-content: center;
@@ -24,8 +21,8 @@
 
     .container {
       background: rgba(15, 15, 15, 0.9);
-      border: 2px solid #785A28;
-      border-radius: 8px;
+      border: 4px solid #785A28; /* Thicker border */
+      border-radius: 10px;
       padding: 40px;
       max-width: 1000px;
       text-align: center;
@@ -42,7 +39,7 @@
       width: 920px;
       height: 518px;
       object-fit: cover;
-      border: 2px solid #C8AA6E;
+      border: 4px solid #C8AA6E; /* Thicker border */
       border-radius: 6px;
       margin-bottom: 20px;
     }
@@ -111,8 +108,23 @@
   <script>
     const champions = [
       "Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "AurelionSol", "Azir",
-      // ... shortened for brevity
-      "Zyra", "xdd"
+      "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "ChoGath",
+      "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks",
+      "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim",
+      "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin",
+      "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen",
+      "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra",
+      "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser",
+      "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu",
+      "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus",
+      "RekSai", "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani",
+      "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner",
+      "Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
+      "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
+      "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
+      "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
+      "Ziggs", "Zilean", "Zoe", "Zyra",
+      "xdd"
     ];
 
     let currentIndex = 0;
