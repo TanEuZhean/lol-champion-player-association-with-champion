@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Champion Association Game</title>
   <style>
     body {
@@ -52,6 +52,8 @@
       background-color: rgba(0, 0, 0, 0.6);
       padding: 40px;
       border-radius: 25px;
+      width: 90%;
+      max-width: 1000px;
     }
 
     #summary {
@@ -59,8 +61,26 @@
     }
 
     .summary-entry {
-      margin: 16px 0;
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      margin: 12px 0;
+      padding: 10px;
+    }
+
+    .summary-entry img {
+      width: 80px;
+      height: 45px;
+      border-radius: 6px;
+      object-fit: cover;
+      margin-right: 20px;
+      border: 2px solid #fff;
+    }
+
+    .summary-text {
       font-size: 20px;
+      text-align: left;
     }
 
     h1 {
@@ -130,23 +150,23 @@
       }
 
       const customImages = {
-        Kayle:   "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
+        Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
         Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
-        Xayah:   "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
-        Rakan:   "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
+        Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
+        Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
+      };
+
+      const specialCases = {
+        ChoGath: "Chogath",
+        KhaZix: "Khazix",
+        RekSai: "RekSai",
+        Velkoz: "Velkoz",
+        KSante: "Ksante",
+        LeBlanc: "Leblanc",
+        Wukong: "MonkeyKing"
       };
 
       if (customImages[name]) return customImages[name];
-
-      const specialCases = {
-        ChoGath:   "Chogath",
-        KhaZix:    "Khazix",
-        RekSai:    "RekSai",
-        Velkoz:    "Velkoz",
-        KSante:    "KSante",
-        LeBlanc:   "Leblanc",
-        Wukong:    "MonkeyKing"
-      };
 
       const urlName = specialCases[name] || name;
       return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
@@ -185,7 +205,16 @@
       results.forEach(e => {
         const d = document.createElement('div');
         d.className = 'summary-entry';
-        d.textContent = `${e.champion} → ${e.player}`;
+
+        const img = document.createElement('img');
+        img.src = getChampionImageUrl(e.champion);
+
+        const text = document.createElement('div');
+        text.className = 'summary-text';
+        text.textContent = `${e.champion} → ${e.player}`;
+
+        d.appendChild(img);
+        d.appendChild(text);
         list.appendChild(d);
       });
       document.getElementById('summary').style.display = 'block';
