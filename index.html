@@ -6,32 +6,30 @@
   <title>Champion Association Game</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-image: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/gameflow-background-dark.jpg');
+      font-family: 'Arial', sans-serif;
+      background: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/gameflow-background-dark.jpg') center center no-repeat;
       background-size: cover;
-      background-position: center;
       color: white;
       margin: 0;
-      backdrop-filter: brightness(0.7);
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      backdrop-filter: brightness(0.5);
     }
 
     .container {
       position: relative;
       text-align: center;
+      background: rgba(0, 0, 0, 0.7);
       background-image: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/champ-select-flyout-background.jpg');
       background-size: cover;
-      background-position: center;
       background-blend-mode: overlay;
-      background-color: rgba(0,0,0,0.6);
-      padding: 30px;
       border-radius: 20px;
       max-width: 900px;
       margin: 20px auto;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      padding: 40px;
     }
 
     img#champion-img {
@@ -39,46 +37,50 @@
       height: 500px;
       object-fit: cover;
       border-radius: 15px;
-      margin-bottom: 20px;
       border: 3px solid #fff;
+      margin-bottom: 20px;
     }
 
     input {
       padding: 18px;
-      font-size: 24px;
-      width: 350px;
+      font-size: 20px;
+      width: 300px;
       border-radius: 8px;
-      border: 1px solid #444;
-      background-color: #1c1c1c;
+      border: 2px solid #444;
+      background-color: rgba(30, 30, 30, 0.8);
       color: #eee;
+      margin-bottom: 20px;
+      outline: none;
     }
 
     button {
       position: relative;
-      padding: 18px 24px 18px 56px;
+      padding: 18px 24px;
       font-size: 20px;
       margin: 10px;
       border: none;
       border-radius: 8px;
-      background-color: transparent;
-      background-image: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-default.png');
-      background-repeat: no-repeat;
-      background-position: 12px center;
-      color: #fff;
+      background: linear-gradient(135deg, #1d426d, #00627e);
+      color: white;
       cursor: pointer;
-      transition: background-image 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s;
+      text-transform: uppercase;
     }
+
     button:hover {
-      background-image: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-hover.png');
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
     }
+
     button:active {
-      background-image: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-active.png');
+      transform: scale(0.98);
     }
 
     h1 {
       font-size: 42px;
       margin-bottom: 20px;
-      text-shadow: 0 0 8px rgba(0,176,244,0.8);
+      text-shadow: 0 0 8px rgba(0, 176, 244, 0.8);
     }
 
     #nav-buttons {
@@ -87,14 +89,13 @@
 
     #credits {
       margin-top: 15px;
-      font-size: 24px;
+      font-size: 20px;
       color: #ccc;
     }
 
     #summary {
       display: none;
       width: 100%;
-      height: 100%;
       overflow-y: auto;
       padding-top: 20px;
     }
@@ -102,38 +103,45 @@
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
+      gap: 20px;
     }
 
     .summary-entry {
-      background-color: rgba(30,30,30,0.8);
+      background-color: rgba(30, 30, 30, 0.9);
       border: 1px solid #00627e;
       border-radius: 8px;
-      padding: 8px;
+      padding: 12px;
       text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-      transition: transform 0.2s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+
     .summary-entry:hover {
       transform: translateY(-4px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
     }
+
     .summary-entry img {
       width: 100%;
       height: 120px;
       object-fit: cover;
       border-radius: 6px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
+
     .champion-name {
       font-size: 18px;
       font-weight: bold;
       color: #00b0f4;
     }
+
     .player-name {
       font-size: 14px;
       color: #aaa;
+    }
+
+    #game {
+      text-align: center;
     }
   </style>
 </head>
@@ -159,23 +167,23 @@
 
   <script>
     const champions = [
-      "Aatrox","Ahri","Akali","Alistar","Amumu","Anivia","Annie","Aphelios","Ashe","AurelionSol","Azir",
-      "Bard","Belveth","Blitzcrank","Brand","Braum","Briar","Caitlyn","Camille","Cassiopeia","ChoGath",
-      "Corki","Darius","Diana","DrMundo","Draven","Ekko","Elise","Evelynn","Ezreal","Fiddlesticks",
-      "Fiora","Fizz","Galio","Gangplank","Garen","Gnar","Gragas","Graves","Gwen","Hecarim",
-      "Heimerdinger","Illaoi","Irelia","Ivern","Janna","JarvanIV","Jax","Jayce","Jhin","Jinx",
-      "Kaisa","Kalista","Karma","Karthus","Kassadin","Katarina","Kayle","Kayn","Kennen","KhaZix",
-      "Kindred","Kled","KogMaw","KSante","LeBlanc","LeeSin","Leona","Lillia","Lissandra","Lucian",
-      "Lulu","Lux","Malphite","Malzahar","Maokai","MasterYi","Milio","MissFortune","Mordekaiser","Morgana",
-      "Naafiri","Nami","Nasus","Nautilus","Neeko","Nidalee","Nilah","Nocturne","Nunu","Olaf",
-      "Orianna","Ornn","Pantheon","Poppy","Pyke","Qiyana","Quinn","Rakan","Rammus","RekSai",
-      "Rell","Renata","Renekton","Rengar","Riven","Rumble","Ryze","Samira","Sejuani","Senna",
-      "Seraphine","Sett","Shaco","Shen","Shyvana","Singed","Sion","Sivir","Skarner","Sona",
-      "Soraka","Swain","Sylas","Syndra","TahmKench","Taliyah","Talon","Taric","Teemo","Thresh",
-      "Tristana","Trundle","Tryndamere","TwistedFate","Twitch","Udyr","Urgot","Varus","Vayne","Veigar",
-      "Velkoz","Vex","Vi","Viego","Viktor","Vladimir","Volibear","Warwick","Wukong","Xayah",
-      "Xerath","XinZhao","Yasuo","Yone","Yorick","Yuumi","Zac","Zed","Zeri","Ziggs",
-      "Zilean","Zoe","Zyra","xdd"
+      "Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "AurelionSol", "Azir",
+      "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "ChoGath",
+      "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks",
+      "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim",
+      "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx",
+      "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "KhaZix",
+      "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra", "Lucian",
+      "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser", "Morgana",
+      "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu", "Olaf",
+      "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus", "RekSai",
+      "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani", "Senna",
+      "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona",
+      "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh",
+      "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar",
+      "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xayah",
+      "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri", "Ziggs",
+      "Zilean", "Zoe", "Zyra", "xdd"
     ];
 
     const customSplash = {
@@ -192,72 +200,4 @@
       KhaZix:  "Khazix",
       RekSai:  "RekSai",
       Velkoz:  "Velkoz",
-      LeBlanc: "Leblanc",
-      Wukong:  "MonkeyKing"
-    };
-
-    let currentIndex = 0;
-    const results = [];
-
-    function getChampionImageUrl(name) {
-      if (customSplash[name]) return customSplash[name];
-      const urlName = specialCases[name] || name;
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
-    }
-
-    function loadChampion() {
-      if (currentIndex >= champions.length) return showSummary();
-      document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
-      document.getElementById('player-name').value = '';
-    }
-
-    function submitAnswer() {
-      const input = document.getElementById('player-name').value.trim();
-      results.push({ champion: champions[currentIndex], player: input || "(No answer)" });
-      currentIndex++;
-      loadChampion();
-    }
-
-    function skipChampion() {
-      results.push({ champion: champions[currentIndex], player: "(Skipped)" });
-      currentIndex++;
-      loadChampion();
-    }
-
-    function goBack() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        results.pop();
-        loadChampion();
-      }
-    }
-
-    function showSummary() {
-      document.getElementById('game').style.display = 'none';
-      const grid = document.getElementById('summary-list');
-      grid.innerHTML = '';
-      results.forEach(e => {
-        const entry = document.createElement('div');
-        entry.className = 'summary-entry';
-
-        const img = document.createElement('img');
-        img.src = getChampionImageUrl(e.champion);
-
-        const c = document.createElement('div');
-        c.className = 'champion-name';
-        c.textContent = e.champion;
-
-        const p = document.createElement('div');
-        p.className = 'player-name';
-        p.textContent = e.player;
-
-        entry.append(img, c, p);
-        grid.append(entry);
-      });
-      document.getElementById('summary').style.display = 'block';
-    }
-
-    window.onload = loadChampion;
-  </script>
-</body>
-</html>
+      LeBl
