@@ -54,13 +54,14 @@
       color: #F0E6D2;
     }
 
+    /* Button styles */
     button {
       padding: 14px 28px;
       font-size: 20px;
       font-weight: bold;
-      border-radius: 30px;
+      border-radius: 30px; /* Rounded corners */
       margin: 10px;
-      background: linear-gradient(145deg, #6C542A, #C8AA6E);
+      background: linear-gradient(145deg, #6C542A, #C8AA6E); /* Gradient background */
       color: #F0E6D2;
       border: none;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -69,12 +70,12 @@
     }
 
     button:hover {
-      background: linear-gradient(145deg, #C8AA6E, #6C542A);
+      background: linear-gradient(145deg, #C8AA6E, #6C542A); /* Inverted gradient on hover */
       transform: scale(1.05);
     }
 
     button:active {
-      background: #F0E6D2;
+      background: #F0E6D2; /* Lighter gold on click */
       color: #6C542A;
     }
 
@@ -92,34 +93,35 @@
       display: none;
     }
 
-    .summary-entry {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background-color: #1e1e1e;
-      border: 1px solid #785A28;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 8px;
-    }
-
-    .summary-entry img {
-      width: 60px;
-      height: 34px;
-      object-fit: cover;
-      border: 2px solid #C8AA6E;
-      border-radius: 4px;
-    }
-
-    .summary-entry span {
-      font-size: 18px;
-      color: #F0E6D2;
-    }
-
+    /* Summary section */
     #summary-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
       max-height: 600px;
       overflow-y: auto;
       padding-right: 10px;
+    }
+
+    .summary-entry {
+      width: 30%;
+      min-width: 240px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #1e1e1e;
+      border: 1px solid #785A28;
+      padding: 10px;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .summary-entry img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -196,21 +198,6 @@
       return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
-    function getThumbnailUrl(name) {
-      const specialCases = {
-        ChoGath: "Chogath",
-        KhaZix: "Khazix",
-        RekSai: "RekSai",
-        Velkoz: "Velkoz",
-        KSante: "KSante",
-        LeBlanc: "Leblanc",
-        Wukong: "MonkeyKing"
-      };
-
-      const urlName = specialCases[name] || name;
-      return `https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/${urlName}.png`;
-    }
-
     function loadChampion() {
       if (currentIndex >= champions.length) return showSummary();
       document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
@@ -242,30 +229,15 @@
       document.getElementById('game').style.display = 'none';
       const list = document.getElementById('summary-list');
       results.forEach(e => {
-        const entry = document.createElement('div');
-        entry.className = 'summary-entry';
-
-        const img = document.createElement('img');
-        img.src = getThumbnailUrl(e.champion);
-
-        const text = document.createElement('span');
-        text.textContent = `${e.champion} → ${e.player}`;
-
-        entry.appendChild(img);
-        entry.appendChild(text);
-        list.appendChild(entry);
+        const d = document.createElement('div');
+        d.className = 'summary-entry';
+        d.innerHTML = `<img src="${getChampionImageUrl(e.champion)}" alt="${e.champion}"/><span>${e.champion} → ${e.player}</span>`;
+        list.appendChild(d);
       });
       document.getElementById('summary').style.display = 'block';
     }
 
-    window.onload = () => {
-      loadChampion();
-      document.getElementById('player-name').addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-          submitAnswer();
-        }
-      });
-    };
+    window.onload = loadChampion;
   </script>
 </body>
 </html>
