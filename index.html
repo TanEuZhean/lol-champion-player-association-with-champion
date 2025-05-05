@@ -2,80 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Champion Association Game</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-image: url('https://i.postimg.cc/vBK12Xg5/when-i-clicked-into-fofostream-i-thought-hes-myfraud-v0-788d39odmwtd1.webp');
+      font-family: 'Arial', sans-serif;
+      background: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/gameflow-background-dark.jpg') center center no-repeat;
       background-size: cover;
-      background-position: center;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       margin: 0;
-      backdrop-filter: brightness(0.8);
-    }
-
-    img {
-      width: 800px;
-      height: 500px;
-      object-fit: cover;
-      border-radius: 20px;
-      margin-bottom: 30px;
-      border: 5px solid #fff;
-    }
-
-    input, button {
-      padding: 20px;
-      font-size: 24px;
-      margin: 10px;
-      border-radius: 10px;
-      border: none;
-    }
-
-    input {
-      width: 400px;
-    }
-
-    button {
-      background-color: #1e90ff;
-      color: white;
-      cursor: pointer;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: brightness(0.5);
     }
 
     .container {
+      position: relative;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.7);
+      background-image: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/champ-select-flyout-background.jpg');
+      background-size: cover;
+      background-blend-mode: overlay;
+      border-radius: 20px;
+      max-width: 900px;
+      margin: 20px auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
       padding: 40px;
-      border-radius: 25px;
+    }
+
+    img#champion-img {
+      width: 800px;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 15px;
+      border: 3px solid #fff;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 18px;
+      font-size: 20px;
+      width: 300px;
+      border-radius: 8px;
+      border: 2px solid #444;
+      background-color: rgba(30, 30, 30, 0.8);
+      color: #eee;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    button {
+      position: relative;
+      padding: 18px 24px;
+      font-size: 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #1d426d, #00627e);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px rgba(0, 176, 244, 0.8);
+    }
+
+    #nav-buttons {
+      margin-top: 10px;
+    }
+
+    #credits {
+      margin-top: 15px;
+      font-size: 20px;
+      color: #ccc;
     }
 
     #summary {
       display: none;
+      width: 100%;
+      overflow-y: auto;
+      padding-top: 20px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
     }
 
     .summary-entry {
-      margin: 16px 0;
-      font-size: 20px;
+      background-color: rgba(30, 30, 30, 0.9);
+      border: 1px solid #00627e;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: 30px;
+    .summary-entry:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
     }
 
-    #nav-buttons {
-      margin-top: 20px;
+    .summary-entry img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 8px;
     }
 
-    #credits {
-      margin-top: 20px;
-      font-size: 32px;
-      color: #ccc;
+    .champion-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #00b0f4;
+    }
+
+    .player-name {
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    #game {
+      text-align: center;
     }
   </style>
 </head>
@@ -96,7 +162,7 @@
 
   <div class="container" id="summary">
     <h1>Summary</h1>
-    <div id="summary-list"></div>
+    <div class="summary-grid" id="summary-list"></div>
   </div>
 
   <script>
@@ -105,93 +171,107 @@
       "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "ChoGath",
       "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks",
       "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim",
-      "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin",
-      "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen",
-      "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra",
-      "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser",
-      "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu",
-      "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus",
-      "RekSai", "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani",
-      "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner",
-      "Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
-      "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
-      "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
-      "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra",
-      "xdd"
+      "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx",
+      "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "KhaZix",
+      "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra", "Lucian",
+      "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser", "Morgana",
+      "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu", "Olaf",
+      "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus", "RekSai",
+      "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani", "Senna",
+      "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona",
+      "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh",
+      "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar",
+      "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xayah",
+      "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri", "Ziggs",
+      "Zilean", "Zoe", "Zyra", "xdd"
     ];
 
-    let currentIndex = 0;
-    const results = [];
+    const customSplash = {
+      Kayle:   "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
+      Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
+      Xayah:   "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
+      Rakan:   "https://i.postimg.cc/Jhq5Xttt/Rakan.webp",
+      KSante:  "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/KSante_0.jpg",
+      xdd:     "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp"
+    };
 
-    function getChampionImageUrl(name) {
-      if (name === "xdd") {
-        return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
-      }
+    const specialCases = {
+      ChoGath: "Chogath",
+      KhaZix:  "Khazix",
+      RekSai:  "RekSai",
+      Velkoz:  "Velkoz",
+      LeBlanc: "Leblanc",
+      DrMundo: "DrMundo",
+      Wukong:  "MonkeyKing",
+      Nunu:    "Nunu"
+    };
 
-      const customImages = {
-        Kayle:   "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
-        Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
-        Xayah:   "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
-        Rakan:   "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
-      };
+    let current = 0;
+    const answers = [];
 
-      if (customImages[name]) return customImages[name];
-
-      const specialCases = {
-        ChoGath:   "Chogath",
-        KhaZix:    "Khazix",
-        RekSai:    "RekSai",
-        Velkoz:    "Velkoz",
-        KSante:    "KSante",
-        LeBlanc:   "Leblanc",
-        Wukong:    "MonkeyKing"
-      };
-
-      const urlName = specialCases[name] || name;
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
-    }
-
-    function loadChampion() {
-      if (currentIndex >= champions.length) return showSummary();
-      document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
-      document.getElementById('player-name').value = '';
+    function updateChampion() {
+      const champ = champions[current];
+      const splash = customSplash[champ]
+        ? customSplash[champ]
+        : `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${specialCases[champ] || champ}_0.jpg`;
+      document.getElementById("champion-img").src = splash;
     }
 
     function submitAnswer() {
-      const input = document.getElementById('player-name').value.trim();
-      results.push({ champion: champions[currentIndex], player: input || "(No answer)" });
-      currentIndex++;
-      loadChampion();
-    }
-
-    function skipChampion() {
-      results.push({ champion: champions[currentIndex], player: "(Skipped)" });
-      currentIndex++;
-      loadChampion();
+      const input = document.getElementById("player-name");
+      const name = input.value.trim();
+      if (!name) return;
+      answers[current] = name;
+      input.value = "";
+      current++;
+      if (current < champions.length) {
+        updateChampion();
+      } else {
+        showSummary();
+      }
     }
 
     function goBack() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        results.pop();
-        loadChampion();
+      if (current > 0) current--;
+      updateChampion();
+    }
+
+    function skipChampion() {
+      answers[current] = "";
+      current++;
+      if (current < champions.length) {
+        updateChampion();
+      } else {
+        showSummary();
       }
     }
 
     function showSummary() {
-      document.getElementById('game').style.display = 'none';
-      const list = document.getElementById('summary-list');
-      results.forEach(e => {
-        const d = document.createElement('div');
-        d.className = 'summary-entry';
-        d.textContent = `${e.champion} → ${e.player}`;
-        list.appendChild(d);
+      document.getElementById("game").style.display = "none";
+      const summary = document.getElementById("summary");
+      const list = document.getElementById("summary-list");
+      list.innerHTML = "";
+
+      champions.forEach((champ, i) => {
+        const entry = document.createElement("div");
+        entry.className = "summary-entry";
+
+        const splash = customSplash[champ]
+          ? customSplash[champ]
+          : `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${specialCases[champ] || champ}_0.jpg`;
+
+        entry.innerHTML = `
+          <img src="${splash}" alt="${champ}" />
+          <div class="champion-name">${champ}</div>
+          <div class="player-name">${answers[i] || "-"}</div>
+        `;
+        list.appendChild(entry);
       });
-      document.getElementById('summary').style.display = 'block';
+
+      summary.style.display = "block";
     }
 
-    window.onload = loadChampion;
+    updateChampion();
   </script>
 </body>
 </html>
