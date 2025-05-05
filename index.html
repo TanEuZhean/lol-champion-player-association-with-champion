@@ -202,7 +202,7 @@
     function getChampionImageUrl(name) {
       if (customSplash[name]) return customSplash[name];
       const urlName = specialCases[name] || name;
-      return "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg";
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
     function loadChampion() {
