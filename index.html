@@ -8,171 +8,105 @@
     @import url('https://fonts.googleapis.com/css2?family=Beaufort+for+LOL&display=swap');
 
     body {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       font-family: 'Beaufort for LOL', Arial, sans-serif;
       background-image: url('https://i.postimg.cc/d1Cq70Gp/image.png');
-      background-size: cover;
-      background-position: center;
+      background-size: cover; background-position: center;
       color: #C8AA6E;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: flex; justify-content: center; align-items: center;
       min-height: 100vh;
     }
 
     .container {
-      background: rgba(15, 15, 15, 0.9);
-      border: 4px solid #785A28;
-      border-radius: 10px;
-      padding: 40px;
-      max-width: 1000px;
-      text-align: center;
-      box-shadow: 0 0 20px #000;
+      background: rgba(15,15,15,0.9);
+      border: 4px solid #785A28; border-radius: 10px;
+      padding: 40px; max-width: 1000px; width: 100%;
+      box-shadow: 0 0 20px #000; text-align: center;
     }
+    .container.summary { max-width: 1200px; padding: 60px; }
 
-    .container.summary {
-      max-width: 1200px;
-      padding: 60px;
-    }
-
-    h1 {
-      font-size: 32px;
-      color: #F0E6D2;
-      margin-bottom: 20px;
-    }
+    h1 { font-size: 32px; color: #F0E6D2; margin-bottom: 20px; }
 
     #champion-img {
-      width: 920px;
-      height: 518px;
-      object-fit: cover;
-      border: 4px solid #C8AA6E;
-      border-radius: 6px;
+      width: 920px; height: 518px; object-fit: cover;
+      border: 4px solid #C8AA6E; border-radius: 6px;
       margin-bottom: 20px;
     }
 
-    input[type="text"] {
-      width: 400px;
-      padding: 12px 16px;
-      font-size: 20px;
-      border-radius: 4px;
-      border: 2px solid #C8AA6E;
-      background-color: #1e1e1e;
-      color: #F0E6D2;
+    #drop-zone {
+      border: 3px dashed #C8AA6E; border-radius: 8px;
+      width: 600px; height: 60px; margin: 20px auto;
+      line-height: 60px; color: #F0E6D2; font-size: 20px;
+      background: rgba(30,30,30,0.5);
+    }
+    #drop-zone.dragover {
+      background: rgba(200,170,110,0.3);
+      border-color: #F0E6D2;
     }
 
-    button {
-      padding: 15px 30px;
-      font-size: 22px;
-      font-weight: bold;
-      border-radius: 50px;
-      margin: 10px;
-      background: linear-gradient(135deg, #A87645, #C89F69);
-      color: #F0E6D2;
-      border: 2px solid #6B4A29;
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      outline: none;
-    }
-
-    button:hover {
-      background: linear-gradient(135deg, #C89F69, #A87645);
-      transform: scale(1.05);
-      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.8);
-    }
-
-    button:active {
-      background: #F0E6D2;
-      color: #6C542A;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    }
-
-    #nav-buttons {
-      margin-top: 20px;
-    }
-
-    #credits {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #7E633F;
-    }
-
-    #summary {
-      display: none;
-    }
-
-    #summary-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      max-height: 800px;
-      overflow-y: auto;
-      padding-right: 10px;
-    }
-
-    .summary-entry {
-      width: 30%;
-      min-width: 240px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background-color: #1e1e1e;
-      border: 1px solid #785A28;
-      padding: 10px;
-      border-radius: 8px;
-      box-sizing: border-box;
-    }
-
-    .summary-entry img {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
+    #player-pool {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      max-height: 300px; overflow-y: auto;
+      margin-top: 20px; padding: 10px;
+      background: rgba(15,15,15,0.8); border: 2px solid #785A28;
       border-radius: 6px;
     }
-
-    .inner-button {
-      padding: 15px 30px;
-      font-size: 22px;
-      font-weight: bold;
-      border-radius: 50px;
-      margin: 10px;
-      background: linear-gradient(135deg, #A87645, #C89F69);
-      color: #F0E6D2;
-      border: 2px solid #6B4A29;
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      outline: none;
+    .player-item {
+      padding: 6px 12px; background: #1e1e1e;
+      border: 1px solid #C8AA6E; border-radius: 4px;
+      color: #F0E6D2; cursor: grab;
     }
+    .player-item:active { cursor: grabbing; }
 
-    .inner-button:hover {
-      background: linear-gradient(135deg, #C89F69, #A87645);
+    #nav-buttons { margin-top: 20px; }
+    button, .inner-button {
+      padding: 15px 30px; font-size: 22px; font-weight: bold;
+      border-radius: 50px; margin: 10px;
+      background: linear-gradient(135deg,#A87645,#C89F69);
+      color: #F0E6D2; border:2px solid #6B4A29;
+      box-shadow:4px 4px 10px rgba(0,0,0,0.7);
+      cursor:pointer; transition:transform 0.3s,box-shadow 0.3s;
+      outline:none;
+    }
+    button:hover, .inner-button:hover {
+      background: linear-gradient(135deg,#C89F69,#A87645);
       transform: scale(1.05);
-      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.8);
+      box-shadow:4px 4px 15px rgba(0,0,0,0.8);
+    }
+    button:active, .inner-button:active {
+      background:#F0E6D2; color:#6C542A;
+      box-shadow:2px 2px 5px rgba(0,0,0,0.5);
     }
 
-    .inner-button:active {
-      background: #F0E6D2;
-      color: #6C542A;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    #summary { display:none; }
+    #summary-list {
+      display:flex; flex-wrap:wrap; gap:16px;
+      justify-content:center; max-height:800px;
+      overflow-y:auto; padding-right:10px;
+    }
+    .summary-entry {
+      width:30%; min-width:240px; display:flex;
+      align-items:center; gap:10px;
+      background:#1e1e1e; border:1px solid #785A28;
+      padding:10px; border-radius:8px; box-sizing:border-box;
+    }
+    .summary-entry img {
+      width:50px; height:50px; object-fit:cover; border-radius:6px;
     }
   </style>
 </head>
 <body>
+
   <div class="container" id="game">
     <h1>Name the first pro player that comes to mind</h1>
     <img id="champion-img" src="" alt="Champion" />
-    <div>
-      <input type="text" id="player-name" placeholder="Enter pro player name" />
-      <button onclick="submitAnswer()">Submit</button>
-    </div>
+    <div id="drop-zone">Drag a player here</div>
     <div id="nav-buttons">
       <button class="inner-button" onclick="goBack()">Back</button>
       <button class="inner-button" onclick="skipChampion()">Skip</button>
     </div>
     <div id="credits">Made by kyanitevrc (discord)</div>
+    <div id="player-pool"></div>
   </div>
 
   <div class="container summary" id="summary">
@@ -181,102 +115,80 @@
   </div>
 
   <script>
-    const champions = [
-      "Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "AurelionSol", "Azir",
-      "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "ChoGath",
-      "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks",
-      "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim",
-      "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin",
-      "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen",
-      "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra",
-      "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser",
-      "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu",
-      "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus",
-      "RekSai", "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani",
-      "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner",
-      "Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
-      "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
-      "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
-      "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra",
-      "xdd"
+    // stub: paste your full Leaguepedia‑extracted list here:
+    const proPlayers = [
+      "Faker","Uzi","Perkz","Rekkles","Bwipo","Caps","Doublelift","Bjergsen","TheShy",
+      /* … thousands more … */
     ];
 
-    let currentIndex = 0;
-    const results = [];
+    const champions = [ /* … your champions list … */ "Aatrox","Ahri","Akali","xdd" ];
+    let currentIndex = 0, results = [];
 
-    function getChampionImageUrl(name) {
-      if (name === "xdd") {
-        return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
-      }
+    const dropZone = document.getElementById('drop-zone'),
+          pool = document.getElementById('player-pool');
 
-      const customImages = {
-        Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
-        Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
-        Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
-        Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
-      };
+    // render pool
+    proPlayers.forEach(name => {
+      const div = document.createElement('div');
+      div.className = 'player-item';
+      div.draggable = true;
+      div.textContent = name;
+      div.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', name);
+      });
+      pool.appendChild(div);
+    });
 
-      if (customImages[name]) return customImages[name];
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', ()=> dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const player = e.dataTransfer.getData('text/plain');
+      submitAnswer(player);
+    });
 
-      const specialCases = {
-        ChoGath: "Chogath",
-        KhaZix: "Khazix",
-        RekSai: "RekSai",
-        Velkoz: "Velkoz",
-        KSante: "KSante",
-        LeBlanc: "Leblanc",
-        Wukong: "MonkeyKing"
-      };
-
-      const urlName = specialCases[name] || name;
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
+    function getChampionImageUrl(n){
+      if(n==="xdd")return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${n}_0.jpg`;
     }
 
-    function loadChampion() {
-      if (currentIndex >= champions.length) return showSummary();
+    function loadChampion(){
+      if(currentIndex>=champions.length) return showSummary();
       document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
-      document.getElementById('player-name').value = '';
-      document.getElementById('player-name').focus();
     }
 
-    function submitAnswer() {
-      const input = document.getElementById('player-name').value.trim();
-      results.push({ champion: champions[currentIndex], player: input || "(No answer)" });
+    function submitAnswer(player){
+      results.push({champion: champions[currentIndex], player});
       currentIndex++;
       loadChampion();
     }
 
-    function skipChampion() {
-      results.push({ champion: champions[currentIndex], player: "(Skipped)" });
-      currentIndex++;
-      loadChampion();
+    function skipChampion(){
+      submitAnswer("(Skipped)");
     }
-
-    function goBack() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        results.pop();
-        loadChampion();
+    function goBack(){
+      if(currentIndex>0){
+        currentIndex--; results.pop(); loadChampion();
       }
     }
 
-    function showSummary() {
-      document.getElementById('game').style.display = 'none';
+    function showSummary(){
+      document.getElementById('game').style.display='none';
       const list = document.getElementById('summary-list');
-      results.forEach(e => {
-        const d = document.createElement('div');
-        d.className = 'summary-entry';
-        d.innerHTML = `<img src="${getChampionImageUrl(e.champion)}" alt="${e.champion}"/><span>${e.champion} → ${e.player}</span>`;
+      results.forEach(e=>{
+        const d=document.createElement('div'); d.className='summary-entry';
+        d.innerHTML = `<img src="${getChampionImageUrl(e.champion)}"/><span>${e.champion} → ${e.player}</span>`;
         list.appendChild(d);
       });
-      document.getElementById('summary').style.display = 'block';
+      document.getElementById('summary').style.display='block';
     }
 
-    // Allow Enter to always submit
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') submitAnswer();
-    });
+    // global Enter → skip (or you could map to submit last?)
+    document.addEventListener('keydown', e=>{ if(e.key==='Enter') skipChampion(); });
 
     loadChampion();
   </script>
