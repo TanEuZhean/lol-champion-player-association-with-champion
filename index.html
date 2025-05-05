@@ -6,8 +6,8 @@
   <title>Champion Association Game</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-image: url('https://i.postimg.cc/vBK12Xg5/when-i-clicked-into-fofostream-i-thought-hes-myfraud-v0-788d39odmwtd1.webp');
+      font-family: 'Proxima Nova', Arial, sans-serif;
+      background-image: url('https://i.postimg.cc/0ybW9DLJ/league-client-bg.jpg'); /* LoL-like background */
       background-size: cover;
       background-position: center;
       color: white;
@@ -21,28 +21,36 @@
 
     .container {
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(30, 30, 30, 0.8);
       padding: 40px;
-      border-radius: 25px;
-      max-width: 1000px;
+      border-radius: 20px;
+      max-width: 900px;
       margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
     img {
       width: 800px;
       height: 500px;
       object-fit: cover;
-      border-radius: 20px;
-      margin-bottom: 30px;
-      border: 5px solid #fff;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      border: 3px solid #fff;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    img:hover {
+      transform: scale(1.05);
     }
 
     input, button {
-      padding: 20px;
+      padding: 18px;
       font-size: 24px;
       margin: 10px;
       border-radius: 10px;
       border: none;
+      outline: none;
+      transition: all 0.3s ease;
     }
 
     input {
@@ -50,14 +58,20 @@
     }
 
     button {
-      background-color: #1e90ff;
+      background-color: #00b0f4; /* League accent color */
       color: white;
       cursor: pointer;
     }
 
+    button:hover {
+      background-color: #1c82c3;
+    }
+
     h1 {
-      font-size: 40px;
+      font-size: 48px;
       margin-bottom: 30px;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
     #nav-buttons {
@@ -66,7 +80,7 @@
 
     #credits {
       margin-top: 20px;
-      font-size: 32px;
+      font-size: 28px;
       color: #ccc;
     }
 
@@ -89,12 +103,19 @@
 
     .summary-entry {
       background-color: rgba(30, 30, 30, 0.8);
-      border: 1px solid #555;
+      border: 2px solid #1e90ff;
       border-radius: 10px;
-      padding: 10px;
+      padding: 15px;
       text-align: center;
       width: 100%;
       max-width: 240px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .summary-entry:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
     }
 
     .summary-entry img {
@@ -107,13 +128,22 @@
 
     .summary-entry .champion-name {
       font-weight: bold;
-      font-size: 20px;
+      font-size: 22px;
+      color: #00b0f4;
     }
 
     .summary-entry .player-name {
       font-size: 16px;
       color: #aaa;
     }
+
+    /* Adjusted for center alignment */
+    #game {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
   </style>
 </head>
 <body>
