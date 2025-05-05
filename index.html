@@ -25,6 +25,7 @@
       border-radius: 10px;
       padding: 40px;
       max-width: 1000px;
+      width: 100%;
       text-align: center;
       box-shadow: 0 0 20px #000;
     }
@@ -54,14 +55,13 @@
       color: #F0E6D2;
     }
 
-    /* Button styles */
     button {
       padding: 14px 28px;
       font-size: 20px;
       font-weight: bold;
-      border-radius: 30px; /* Rounded corners */
+      border-radius: 30px;
       margin: 10px;
-      background: linear-gradient(145deg, #6C542A, #C8AA6E); /* Gradient background */
+      background: linear-gradient(145deg, #6C542A, #C8AA6E);
       color: #F0E6D2;
       border: none;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -70,12 +70,12 @@
     }
 
     button:hover {
-      background: linear-gradient(145deg, #C8AA6E, #6C542A); /* Inverted gradient on hover */
+      background: linear-gradient(145deg, #C8AA6E, #6C542A);
       transform: scale(1.05);
     }
 
     button:active {
-      background: #F0E6D2; /* Lighter gold on click */
+      background: #F0E6D2;
       color: #6C542A;
     }
 
@@ -91,6 +91,35 @@
 
     #summary {
       display: none;
+    }
+
+    #summary-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .summary-entry {
+      display: flex;
+      align-items: center;
+      background-color: #1e1e1e;
+      border: 2px solid #C8AA6E;
+      border-radius: 8px;
+      padding: 8px;
+      color: #F0E6D2;
+      font-size: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .summary-entry img {
+      width: 64px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 12px;
+      border: 1px solid #785A28;
     }
   </style>
 </head>
@@ -197,12 +226,24 @@
     function showSummary() {
       document.getElementById('game').style.display = 'none';
       const list = document.getElementById('summary-list');
+      list.innerHTML = '';
+
       results.forEach(e => {
         const d = document.createElement('div');
         d.className = 'summary-entry';
-        d.textContent = `${e.champion} → ${e.player}`;
+
+        const img = document.createElement('img');
+        img.src = getChampionImageUrl(e.champion);
+        img.alt = e.champion;
+
+        const text = document.createElement('span');
+        text.textContent = `${e.champion} → ${e.player}`;
+
+        d.appendChild(img);
+        d.appendChild(text);
         list.appendChild(d);
       });
+
       document.getElementById('summary').style.display = 'block';
     }
 
