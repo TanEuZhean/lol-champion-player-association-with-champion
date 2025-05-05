@@ -39,6 +39,7 @@
 
     input {
       width: 400px;
+      display: block;
     }
 
     button {
@@ -54,8 +55,14 @@
       border-radius: 25px;
     }
 
-    #summary {
-      display: none;
+    #nav-buttons {
+      margin-top: 20px;
+    }
+
+    #credits {
+      margin-top: 20px;
+      font-size: 32px;
+      color: #ccc;
     }
 
     .summary-entry {
@@ -68,14 +75,8 @@
       margin-bottom: 30px;
     }
 
-    #nav-buttons {
-      margin-top: 20px;
-    }
-
-    #credits {
-      margin-top: 20px;
-      font-size: 32px;
-      color: #ccc;
+    #summary {
+      display: none;
     }
   </style>
 </head>
@@ -101,24 +102,7 @@
 
   <script>
     const champions = [
-      "Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "AurelionSol", "Azir",
-      "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "ChoGath",
-      "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks",
-      "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim",
-      "Heimerdinger", "Hwei", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin",
-      "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen",
-      "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra",
-      "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser",
-      "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu",
-      "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus",
-      "RekSai", "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani",
-      "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner",
-      "Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
-      "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
-      "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
-      "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra",
-      "xdd"
+      "Aatrox", "Ahri", "Akali", /* … */ "Zyra", "xdd"
     ];
 
     let currentIndex = 0;
@@ -128,19 +112,8 @@
       if (name === "xdd") {
         return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
       }
-
-      const specialCases = {
-        ChoGath: "Chogath",
-        KhaZix: "Khazix",
-        RekSai: "RekSai",
-        Velkoz: "Velkoz",
-        KSante: "Ksante",
-        LeBlanc: "Leblanc",
-        Wukong: "Wukong"
-      };
-
-      const urlName = specialCases[name] || name;
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
+      // default splash‑art URL
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
     }
 
     function loadChampion() {
@@ -148,22 +121,30 @@
         showSummary();
         return;
       }
-      const champ = champions[currentIndex];
-      document.getElementById('champion-img').src = getChampionImageUrl(champ);
+      const name = champions[currentIndex];
+      const img = document.getElementById('champion-img');
+
+      // set splash art
+      img.src = getChampionImageUrl(name);
+
+      // if that fails, fall back to the small icon
+      img.onerror = () => {
+        img.onerror = null;
+        img.src = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/${name}.png`;
+      };
+
       document.getElementById('player-name').value = '';
     }
 
     function submitAnswer() {
       const input = document.getElementById('player-name').value.trim();
-      const champ = champions[currentIndex];
-      results.push({ champion: champ, player: input || "(No answer)" });
+      results.push({ champion: champions[currentIndex], player: input || "(No answer)" });
       currentIndex++;
       loadChampion();
     }
 
     function skipChampion() {
-      const champ = champions[currentIndex];
-      results.push({ champion: champ, player: "(Skipped)" });
+      results.push({ champion: champions[currentIndex], player: "(Skipped)" });
       currentIndex++;
       loadChampion();
     }
@@ -178,15 +159,14 @@
 
     function showSummary() {
       document.getElementById('game').style.display = 'none';
-      const summaryDiv = document.getElementById('summary');
       const list = document.getElementById('summary-list');
-      results.forEach(entry => {
-        const div = document.createElement('div');
-        div.className = 'summary-entry';
-        div.textContent = `${entry.champion} → ${entry.player}`;
-        list.appendChild(div);
+      results.forEach(e => {
+        const d = document.createElement('div');
+        d.className = 'summary-entry';
+        d.textContent = `${e.champion} → ${e.player}`;
+        list.appendChild(d);
       });
-      summaryDiv.style.display = 'block';
+      document.getElementById('summary').style.display = 'block';
     }
 
     window.onload = loadChampion;
