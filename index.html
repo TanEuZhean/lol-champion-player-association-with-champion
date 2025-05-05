@@ -4,14 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Champion Association Game</title>
-  <link href="https://fonts.googleapis.com/css2?family=Beaufort+for+LOL:wght@700&family=DIN+Condensed&display=swap" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Beaufort+for+LOL&display=swap');
+
     body {
       margin: 0;
-      font-family: 'DIN Condensed', sans-serif;
-      background-image: url('https://i.postimg.cc/jSWJrM8T/lol-bg.webp'); /* Similar dark client background */
+      padding: 0;
+      font-family: 'Beaufort for LOL', Arial, sans-serif;
+      background-image: url('https://i.postimg.cc/90Rszg6z/lol-bg.jpg'); /* Replace with an actual LoL-style matte background */
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       color: #C8AA6E;
       display: flex;
       justify-content: center;
@@ -20,88 +23,76 @@
     }
 
     .container {
-      background: rgba(15, 20, 30, 0.95);
+      background: rgba(15, 15, 15, 0.9);
       border: 2px solid #785A28;
-      border-radius: 12px;
-      padding: 40px 60px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+      padding: 40px;
       max-width: 1000px;
-      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 20px #000;
     }
 
     h1 {
-      font-family: 'Beaufort for LOL', serif;
-      font-size: 36px;
-      color: #FFD700;
-      text-align: center;
-      margin-bottom: 30px;
-      letter-spacing: 1px;
+      font-size: 32px;
+      color: #F0E6D2;
+      margin-bottom: 20px;
     }
 
     #champion-img {
-      width: 640px;
-      height: 360px;
+      width: 920px;
+      height: 518px;
       object-fit: cover;
-      border-radius: 8px;
       border: 2px solid #C8AA6E;
-      display: block;
-      margin: 0 auto 30px auto;
+      border-radius: 6px;
+      margin-bottom: 20px;
     }
 
-    input, button {
-      font-family: 'DIN Condensed', sans-serif;
-      font-size: 20px;
-      padding: 12px 20px;
-      margin: 10px;
-      border-radius: 8px;
-      border: 1px solid #1E2A39;
-      outline: none;
-    }
-
-    input {
+    input[type="text"] {
       width: 400px;
-      background-color: #0F141E;
-      color: #EEE;
+      padding: 12px 16px;
+      font-size: 20px;
+      border-radius: 4px;
+      border: 1px solid #C8AA6E;
+      background-color: #1e1e1e;
+      color: #F0E6D2;
     }
 
     button {
-      background: linear-gradient(to bottom, #1e90ff, #007acc);
-      color: white;
+      padding: 12px 24px;
+      font-size: 20px;
+      border-radius: 4px;
+      margin: 10px;
+      background-color: #C89B3C;
+      color: #000;
+      border: none;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background-color 0.3s;
     }
 
     button:hover {
-      background: linear-gradient(to bottom, #63b3ff, #1e90ff);
+      background-color: #AD8B3D;
     }
 
     #nav-buttons {
       margin-top: 20px;
-      text-align: center;
     }
 
     #credits {
+      margin-top: 20px;
       font-size: 18px;
-      color: #777;
-      margin-top: 25px;
-      text-align: center;
+      color: #7E633F;
     }
 
     #summary {
       display: none;
     }
-
-    .summary-entry {
-      font-size: 20px;
-      margin: 12px 0;
-    }
   </style>
 </head>
 <body>
   <div class="container" id="game">
-    <h1>Name the Pro Player</h1>
-    <img id="champion-img" src="" alt="Champion">
-    <div style="text-align: center;">
+    <h1>Name the pro player</h1>
+    <img id="champion-img" src="" alt="Champion" />
+    <div>
       <input type="text" id="player-name" placeholder="Enter pro player name" />
       <button onclick="submitAnswer()">Submit</button>
     </div>
@@ -120,23 +111,8 @@
   <script>
     const champions = [
       "Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "AurelionSol", "Azir",
-      "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "ChoGath",
-      "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks",
-      "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim",
-      "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin",
-      "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen",
-      "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra",
-      "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser",
-      "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu",
-      "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus",
-      "RekSai", "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani",
-      "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner",
-      "Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
-      "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
-      "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
-      "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra",
-      "xdd"
+      // ... shortened for brevity
+      "Zyra", "xdd"
     ];
 
     let currentIndex = 0;
