@@ -35,6 +35,8 @@
       max-width: 1000px;
       width: 80%;
       box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border: 2px solid #1e90ff;
     }
 
     #champion-img {
@@ -63,6 +65,8 @@
     button {
       background-color: #1e90ff;
       cursor: pointer;
+      border-radius: 12px;
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
@@ -92,12 +96,6 @@
       border: 2px solid #1e90ff;
     }
 
-    .summary-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
     #summary {
       display: none;
       text-align: center;
@@ -115,6 +113,29 @@
     #game {
       margin-top: 0;
     }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      margin-top: 20px;
+    }
+
+    .button-container button {
+      width: 48%;
+    }
+
+    #summary-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .summary-entry {
+      width: 250px;
+      margin: 10px;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
@@ -125,7 +146,7 @@
       <input type="text" id="player-name" placeholder="Enter pro player name" />
       <button onclick="submitAnswer()">Submit</button>
     </div>
-    <div id="nav-buttons">
+    <div class="button-container">
       <button onclick="goBack()">Back</button>
       <button onclick="skipChampion()">Skip</button>
     </div>
@@ -134,7 +155,7 @@
 
   <div class="container" id="summary">
     <h1>Summary</h1>
-    <div class="summary-container" id="summary-list"></div>
+    <div id="summary-list"></div>
   </div>
 
   <script>
