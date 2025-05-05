@@ -54,29 +54,32 @@
       color: #F0E6D2;
     }
 
-    /* Button styles */
+    /* Custom Button Styles */
     button {
-      padding: 14px 28px;
-      font-size: 20px;
+      padding: 15px 30px;
+      font-size: 22px;
       font-weight: bold;
-      border-radius: 30px; /* Rounded corners */
+      border-radius: 50px; /* Rounded edges */
       margin: 10px;
-      background: linear-gradient(145deg, #6C542A, #C8AA6E); /* Gradient background */
+      background: linear-gradient(135deg, #A87645, #C89F69); /* Gradient color similar to the image */
       color: #F0E6D2;
-      border: none;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      border: 2px solid #6B4A29; /* Border similar to the image */
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7); /* Shadow effect */
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
     }
 
     button:hover {
-      background: linear-gradient(145deg, #C8AA6E, #6C542A); /* Inverted gradient on hover */
-      transform: scale(1.05);
+      background: linear-gradient(135deg, #C89F69, #A87645); /* Inverted gradient on hover */
+      transform: scale(1.05); /* Slightly larger on hover */
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.8); /* Darker shadow on hover */
     }
 
     button:active {
-      background: #F0E6D2; /* Lighter gold on click */
+      background: #F0E6D2; /* Lighter gold when clicked */
       color: #6C542A;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
 
     #nav-buttons {
