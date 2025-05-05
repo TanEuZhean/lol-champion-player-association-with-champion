@@ -54,29 +54,30 @@
       color: #F0E6D2;
     }
 
-    /* Button styles */
+    /* Updated button styles to match the desired image */
     button {
-      padding: 14px 28px;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 30px; /* Rounded corners */
+      padding: 10px 20px;
+      font-size: 18px;
+      font-family: 'Arial', sans-serif;
+      font-weight: 600;
+      border-radius: 5px; /* Slightly rounded corners */
       margin: 10px;
-      background: linear-gradient(145deg, #6C542A, #C8AA6E); /* Gradient background */
-      color: #F0E6D2;
+      background: linear-gradient(135deg, #606060, #929292); /* Color gradient similar to the image */
+      color: white;
       border: none;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      text-transform: uppercase;
+      transition: background-color 0.3s, transform 0.2s ease-in-out;
     }
 
     button:hover {
-      background: linear-gradient(145deg, #C8AA6E, #6C542A); /* Inverted gradient on hover */
-      transform: scale(1.05);
+      background: linear-gradient(135deg, #929292, #606060);
+      transform: scale(1.05); /* Slight zoom effect */
     }
 
     button:active {
-      background: #F0E6D2; /* Lighter gold on click */
-      color: #6C542A;
+      background: #4b4b4b; /* Darker background when pressed */
     }
 
     #nav-buttons {
