@@ -11,16 +11,20 @@
       background-size: cover;
       background-position: center;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       margin: 0;
       backdrop-filter: brightness(0.8);
     }
 
-    img#champion-img {
+    .container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 25px;
+      max-width: 1000px;
+      margin: 40px auto;
+    }
+
+    img {
       width: 800px;
       height: 500px;
       object-fit: cover;
@@ -47,48 +51,6 @@
       cursor: pointer;
     }
 
-    .container {
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 25px;
-    }
-
-    #summary {
-      display: none;
-      background-color: #0a0a0a;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 10px #1e90ff;
-    }
-
-    .summary-entry {
-      display: flex;
-      align-items: center;
-      background-color: #1c1c1c;
-      border-radius: 12px;
-      padding: 12px 20px;
-      margin: 10px 0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-    }
-
-    .summary-entry img {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 20px;
-      border: 2px solid #ccc;
-    }
-
-    .summary-text {
-      font-size: 20px;
-      color: #e0e0e0;
-      text-align: left;
-    }
-
     h1 {
       font-size: 40px;
       margin-bottom: 30px;
@@ -102,6 +64,47 @@
       margin-top: 20px;
       font-size: 32px;
       color: #ccc;
+    }
+
+    #summary {
+      display: none;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      justify-items: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .summary-entry {
+      background-color: rgba(30, 30, 30, 0.8);
+      border: 1px solid #555;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      width: 100%;
+      max-width: 240px;
+    }
+
+    .summary-entry img {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .summary-entry .champion-name {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .summary-entry .player-name {
+      font-size: 16px;
+      color: #aaa;
     }
   </style>
 </head>
@@ -122,7 +125,7 @@
 
   <div class="container" id="summary">
     <h1>Summary</h1>
-    <div id="summary-list"></div>
+    <div class="summary-grid" id="summary-list"></div>
   </div>
 
   <script>
@@ -143,38 +146,33 @@
       "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
       "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
       "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra", "xdd"
+      "Ziggs", "Zilean", "Zoe", "Zyra",
+      "xdd"
     ];
+
+    const customSplash = {
+      Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
+      Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
+      Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
+      Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp",
+      xdd: "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp"
+    };
+
+    const specialCases = {
+      ChoGath: "Chogath",
+      KhaZix: "Khazix",
+      RekSai: "RekSai",
+      Velkoz: "Velkoz",
+      KSante: "Ksante",
+      LeBlanc: "Leblanc",
+      Wukong: "MonkeyKing"
+    };
 
     let currentIndex = 0;
     const results = [];
 
     function getChampionImageUrl(name) {
-      if (name === "xdd") {
-        return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
-      }
-
-      const customSplash = {
-        Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
-        Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
-        Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
-        Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
-      };
-
-      if (customSplash[name]) {
-        return customSplash[name];
-      }
-
-      const specialCases = {
-        ChoGath: "Chogath",
-        KhaZix: "Khazix",
-        RekSai: "RekSai",
-        Velkoz: "Velkoz",
-        KSante: "KSante",
-        LeBlanc: "Leblanc",
-        Wukong: "MonkeyKing"
-      };
-
+      if (customSplash[name]) return customSplash[name];
       const urlName = specialCases[name] || name;
       return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
@@ -209,20 +207,26 @@
     function showSummary() {
       document.getElementById('game').style.display = 'none';
       const list = document.getElementById('summary-list');
+      list.innerHTML = '';
       results.forEach(e => {
-        const d = document.createElement('div');
-        d.className = 'summary-entry';
+        const entry = document.createElement('div');
+        entry.className = 'summary-entry';
 
         const img = document.createElement('img');
         img.src = getChampionImageUrl(e.champion);
 
-        const text = document.createElement('div');
-        text.className = 'summary-text';
-        text.textContent = `${e.champion} → ${e.player}`;
+        const champName = document.createElement('div');
+        champName.className = 'champion-name';
+        champName.textContent = e.champion;
 
-        d.appendChild(img);
-        d.appendChild(text);
-        list.appendChild(d);
+        const playerName = document.createElement('div');
+        playerName.className = 'player-name';
+        playerName.textContent = e.player;
+
+        entry.appendChild(img);
+        entry.appendChild(champName);
+        entry.appendChild(playerName);
+        list.appendChild(entry);
       });
       document.getElementById('summary').style.display = 'block';
     }
