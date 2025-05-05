@@ -59,15 +59,20 @@
       font-size: 20px;
       border-radius: 4px;
       margin: 10px;
-      background-color: #C89B3C;
-      color: #000;
-      border: none;
+      background-color: #333333; /* Darker background */
+      color: #F0E6D2; /* Light text */
+      border: 2px solid #C8AA6E; /* Gold border */
+      transition: background-color 0.3s, transform 0.2s;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
 
     button:hover {
-      background-color: #AD8B3D;
+      background-color: #785A28; /* Gold background on hover */
+      transform: scale(1.05); /* Slight enlarge effect */
+    }
+
+    button:active {
+      background-color: #C8AA6E; /* Lighter gold on click */
     }
 
     #nav-buttons {
