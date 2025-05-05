@@ -20,7 +20,7 @@
       backdrop-filter: brightness(0.8);
     }
 
-    img {
+    img#champion-img {
       width: 800px;
       height: 500px;
       object-fit: cover;
@@ -52,34 +52,40 @@
       background-color: rgba(0, 0, 0, 0.6);
       padding: 40px;
       border-radius: 25px;
-      width: 90%;
-      max-width: 1000px;
     }
 
     #summary {
       display: none;
+      background-color: #0a0a0a;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #1e90ff;
     }
 
     .summary-entry {
       display: flex;
       align-items: center;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      margin: 12px 0;
-      padding: 10px;
+      background-color: #1c1c1c;
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin: 10px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     }
 
     .summary-entry img {
-      width: 80px;
-      height: 45px;
-      border-radius: 6px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
       object-fit: cover;
       margin-right: 20px;
-      border: 2px solid #fff;
+      border: 2px solid #ccc;
     }
 
     .summary-text {
       font-size: 20px;
+      color: #e0e0e0;
       text-align: left;
     }
 
@@ -137,8 +143,7 @@
       "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
       "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
       "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
-      "Ziggs", "Zilean", "Zoe", "Zyra",
-      "xdd"
+      "Ziggs", "Zilean", "Zoe", "Zyra", "xdd"
     ];
 
     let currentIndex = 0;
@@ -149,24 +154,26 @@
         return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
       }
 
-      const customImages = {
+      const customSplash = {
         Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
         Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
         Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
         Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
       };
 
+      if (customSplash[name]) {
+        return customSplash[name];
+      }
+
       const specialCases = {
         ChoGath: "Chogath",
         KhaZix: "Khazix",
         RekSai: "RekSai",
         Velkoz: "Velkoz",
-        KSante: "Ksante",
+        KSante: "KSante",
         LeBlanc: "Leblanc",
         Wukong: "MonkeyKing"
       };
-
-      if (customImages[name]) return customImages[name];
 
       const urlName = specialCases[name] || name;
       return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
