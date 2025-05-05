@@ -2,79 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Champion Association Game</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Beaufort+for+LOL&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #2d2f39;
-      background-size: cover;
-      background-position: center;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       margin: 0;
+      padding: 0;
+      font-family: 'Beaufort for LOL', Arial, sans-serif;
+      background-color: #0A0A0A; /* Dark color similar to game UI */
+      color: #C8AA6E;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
     .container {
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.7);
+      background: rgba(15, 15, 15, 0.9);
+      border: 4px solid #785A28; /* Thicker border */
+      border-radius: 10px;
       padding: 40px;
-      border-radius: 25px;
-      width: 800px;
-      border: 3px solid #fff;
+      max-width: 1000px;
+      text-align: center;
+      box-shadow: 0 0 20px #000;
     }
 
     h1 {
-      font-size: 40px;
-      margin-bottom: 30px;
-      color: #f7b731;
+      font-size: 32px;
+      color: #F0E6D2;
+      margin-bottom: 20px;
     }
 
-    img {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
+    #champion-img {
+      width: 920px;
+      height: 518px;
       object-fit: cover;
-      border-radius: 15px;
-      margin-bottom: 30px;
-      border: 3px solid #fff;
+      border: 4px solid #C8AA6E; /* Thicker border */
+      border-radius: 6px;
+      margin-bottom: 20px;
     }
 
-    input, button {
-      padding: 15px;
-      font-size: 24px;
-      margin: 10px;
-      border-radius: 12px;
-      border: none;
-      font-family: 'Roboto', sans-serif;
-      text-transform: uppercase;
-    }
-
-    input {
+    input[type="text"] {
       width: 400px;
+      padding: 12px 16px;
+      font-size: 20px;
+      border-radius: 4px;
+      border: 1px solid #C8AA6E;
+      background-color: #1e1e1e;
+      color: #F0E6D2;
     }
 
     button {
-      background: linear-gradient(145deg, #47c9f5, #03a9f4);
-      color: white;
-      font-family: 'Roboto', sans-serif;
-      font-size: 24px;
-      text-transform: uppercase;
-      border-radius: 12px;
-      padding: 16px 32px;
-      box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3), -4px -4px 8px rgba(255, 255, 255, 0.2);
+      padding: 12px 24px;
+      font-size: 20px;
+      border-radius: 4px;
+      margin: 10px;
+      background-color: #333333; /* Darker background */
+      color: #F0E6D2; /* Light text */
+      border: 2px solid #C8AA6E; /* Gold border */
+      transition: background-color 0.3s, transform 0.2s;
       cursor: pointer;
-      transition: all 0.3s ease-in-out;
     }
 
     button:hover {
-      background: linear-gradient(145deg, #03a9f4, #47c9f5);
-      transform: scale(1.05);
-      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4), -6px -6px 12px rgba(255, 255, 255, 0.3);
+      background-color: #785A28; /* Gold background on hover */
+      transform: scale(1.05); /* Slight enlarge effect */
+    }
+
+    button:active {
+      background-color: #C8AA6E; /* Lighter gold on click */
     }
 
     #nav-buttons {
@@ -83,17 +81,12 @@
 
     #credits {
       margin-top: 20px;
-      font-size: 20px;
-      color: #ccc;
+      font-size: 18px;
+      color: #7E633F;
     }
 
     #summary {
       display: none;
-    }
-
-    .summary-entry {
-      margin: 16px 0;
-      font-size: 20px;
     }
   </style>
 </head>
@@ -148,22 +141,22 @@
       }
 
       const customImages = {
-        Kayle:   "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
+        Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
         Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
-        Xayah:   "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
-        Rakan:   "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
+        Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
+        Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
       };
 
       if (customImages[name]) return customImages[name];
 
       const specialCases = {
-        ChoGath:   "Chogath",
-        KhaZix:    "Khazix",
-        RekSai:    "RekSai",
-        Velkoz:    "Velkoz",
-        KSante:    "KSante",
-        LeBlanc:   "Leblanc",
-        Wukong:    "MonkeyKing"
+        ChoGath: "Chogath",
+        KhaZix: "Khazix",
+        RekSai: "RekSai",
+        Velkoz: "Velkoz",
+        KSante: "KSante",
+        LeBlanc: "Leblanc",
+        Wukong: "MonkeyKing"
       };
 
       const urlName = specialCases[name] || name;
