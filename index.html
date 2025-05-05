@@ -4,98 +4,212 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Champion Association Game</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Beaufort+for+LOL:wght@700&family=DIN+Condensed&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/gameflow-background-dark.jpg') no-repeat center center fixed;
+      font-family: 'DIN Condensed', sans-serif;
+      background-image: url('https://i.postimg.cc/jSWJrM8T/lol-bg.webp'); /* Similar dark client background */
       background-size: cover;
-      color: #fff;
+      background-position: center;
+      color: #C8AA6E;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
     .container {
-      width: 800px;
-      margin: 100px auto;
-      background-color: rgba(20, 20, 20, 0.9);
-      padding: 40px;
-      border: 1px solid #444;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #000;
+      background: rgba(15, 20, 30, 0.95);
+      border: 2px solid #785A28;
+      border-radius: 12px;
+      padding: 40px 60px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+      max-width: 1000px;
+      width: 90%;
     }
 
     h1 {
-      font-family: 'Friz Quadrata', serif;
-      font-size: 32px;
+      font-family: 'Beaufort for LOL', serif;
+      font-size: 36px;
+      color: #FFD700;
       text-align: center;
       margin-bottom: 30px;
+      letter-spacing: 1px;
     }
 
     #champion-img {
+      width: 640px;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #C8AA6E;
       display: block;
-      margin: 0 auto 30px;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: 2px solid #555;
-      background-color: #222;
+      margin: 0 auto 30px auto;
     }
 
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #555;
-      border-radius: 5px;
-      background-color: #1c1c1c;
-      color: #fff;
-      margin-bottom: 20px;
+    input, button {
+      font-family: 'DIN Condensed', sans-serif;
+      font-size: 20px;
+      padding: 12px 20px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 1px solid #1E2A39;
+      outline: none;
     }
 
-    .buttons {
+    input {
+      width: 400px;
+      background-color: #0F141E;
+      color: #EEE;
+    }
+
+    button {
+      background: linear-gradient(to bottom, #1e90ff, #007acc);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(to bottom, #63b3ff, #1e90ff);
+    }
+
+    #nav-buttons {
+      margin-top: 20px;
       text-align: center;
     }
 
-    .buttons button {
-      background-color: #2a2a2a;
-      border: 1px solid #555;
-      color: #fff;
-      padding: 10px 20px;
-      margin: 0 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
+    #credits {
+      font-size: 18px;
+      color: #777;
+      margin-top: 25px;
+      text-align: center;
     }
 
-    .buttons button:hover {
-      background-color: #3a3a3a;
+    #summary {
+      display: none;
+    }
+
+    .summary-entry {
+      font-size: 20px;
+      margin: 12px 0;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="game">
     <h1>Name the Pro Player</h1>
-    <img id="champion-img" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg" alt="Champion" />
-    <input type="text" id="player-name" placeholder="Enter pro player name" />
-    <div class="buttons">
+    <img id="champion-img" src="" alt="Champion">
+    <div style="text-align: center;">
+      <input type="text" id="player-name" placeholder="Enter pro player name" />
       <button onclick="submitAnswer()">Submit</button>
+    </div>
+    <div id="nav-buttons">
       <button onclick="goBack()">Back</button>
       <button onclick="skipChampion()">Skip</button>
     </div>
+    <div id="credits">Made by kyanitevrc (discord)</div>
+  </div>
+
+  <div class="container" id="summary">
+    <h1>Summary</h1>
+    <div id="summary-list"></div>
   </div>
 
   <script>
-    function submitAnswer() {
-      // Implement submission logic
+    const champions = [
+      "Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "AurelionSol", "Azir",
+      "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "ChoGath",
+      "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks",
+      "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim",
+      "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin",
+      "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen",
+      "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc", "LeeSin", "Leona", "Lillia", "Lissandra",
+      "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "Mordekaiser",
+      "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu",
+      "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus",
+      "RekSai", "Rell", "Renata", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani",
+      "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner",
+      "Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
+      "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne",
+      "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong",
+      "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zeri",
+      "Ziggs", "Zilean", "Zoe", "Zyra",
+      "xdd"
+    ];
+
+    let currentIndex = 0;
+    const results = [];
+
+    function getChampionImageUrl(name) {
+      if (name === "xdd") {
+        return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
+      }
+
+      const customImages = {
+        Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
+        Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
+        Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
+        Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp"
+      };
+
+      if (customImages[name]) return customImages[name];
+
+      const specialCases = {
+        ChoGath: "Chogath",
+        KhaZix: "Khazix",
+        RekSai: "RekSai",
+        Velkoz: "Velkoz",
+        KSante: "KSante",
+        LeBlanc: "Leblanc",
+        Wukong: "MonkeyKing"
+      };
+
+      const urlName = specialCases[name] || name;
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
-    function goBack() {
-      // Implement go back logic
+    function loadChampion() {
+      if (currentIndex >= champions.length) return showSummary();
+      document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
+      document.getElementById('player-name').value = '';
+    }
+
+    function submitAnswer() {
+      const input = document.getElementById('player-name').value.trim();
+      results.push({ champion: champions[currentIndex], player: input || "(No answer)" });
+      currentIndex++;
+      loadChampion();
     }
 
     function skipChampion() {
-      // Implement skip logic
+      results.push({ champion: champions[currentIndex], player: "(Skipped)" });
+      currentIndex++;
+      loadChampion();
     }
+
+    function goBack() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        results.pop();
+        loadChampion();
+      }
+    }
+
+    function showSummary() {
+      document.getElementById('game').style.display = 'none';
+      const list = document.getElementById('summary-list');
+      results.forEach(e => {
+        const d = document.createElement('div');
+        d.className = 'summary-entry';
+        d.textContent = `${e.champion} → ${e.player}`;
+        list.appendChild(d);
+      });
+      document.getElementById('summary').style.display = 'block';
+    }
+
+    window.onload = loadChampion;
   </script>
 </body>
 </html>
